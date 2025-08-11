@@ -1,0 +1,96 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #000000eb;
+  font-family: "Inter", sans-serif;
+}
+.maincontainer {
+  max-width: fit-content;
+  margin-right: auto;
+  margin-top: auto;
+  margin-left: auto;
+}
+button {
+  background-color: #333333;
+  color: white;
+  margin: 3px;
+  padding: 10px;
+  border-color: none;
+  font-family: sans-serif;
+  font-family: "Inter", sans-serif;
+  /* font-style: italic; */
+}
+.Scientific-functions{
+  margin-top: 10px;
+}
+.container-one {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.Scientific-functions button {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  /* display: flex;  */
+  /* align-items: center;
+  justify-content: center; */
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.function-buttons:active {
+  background-color: #6a6767;
+}
+
+.container-two {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.container-two button {
+  height: 50px;
+  width: 80px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.container-two button:active {
+  background-color: #6a6767;
+}
+
+.operators {
+  background: linear-gradient(to bottom, #ff9500, #cc7700);
+  color: white;
+}
+#Clear-button,#toggle-button,#percentage-button {
+  background-color: #6a6767;
+}
+#Clear-button:active,#toggle-button:active,#percentage-button:active {
+  background-color: #918f8f;
+}
+#display-container{
+  background-color: inherit;
+  color: white;
+  height: 95px;
+  width: inherit;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  font-size: xxx-large;
+  box-sizing: border-box;
+  padding-right: 6px;
+}
+
