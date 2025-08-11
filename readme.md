@@ -1,1 +1,1 @@
-A responsive, browser-based calculator that handles both basic and advanced operations — including trigonometry, logarithms, exponents, and more — built with HTML, CSS, and JavaScript.
+A sleek, responsive browser based calculator that handles everything from basic arithmetic to advanced math — including trigonometry, logarithms, and exponents — powered by the Shunting Yard Algorithm for accurate expression parsing. Built with pure HTML, CSS, and JavaScript.
