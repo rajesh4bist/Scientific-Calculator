@@ -1,6 +1,6 @@
-//a+b*(c^d-e)^(f+g*h)-i
-let array = ["a","+","b","*","(","c","^","d","-","e",")","^","(","f","+","g","*","h",")","-","i"];
-// let array = ["(", "A", "+", "B", "*", "C", "-", "D", ")"]
+// let array = ["a","+","b","*","(","c","^","d","-","e",")","^","(","f","+","g","*","h",")","-","i"];
+let array = ["(","a","+","b","*","c",")","^","(","d","-","e","/","f",")","+","g","*","(","h","+","i","^","j",")","-","k","/","l","+","m"];
+
 let stack = [];
 let output = [];
 
@@ -81,12 +81,6 @@ while (stack.length != 0) {
     output.push(stack[stack.length - 1]);
     stack.pop();
 }
-
-// Else, pop all operators from the stack that have precedence higher than or equal to that of the current operator. After that push the current operator onto the stack.
-
-// If the precedence of the current scanned operator is higher than the precedence of the operator on top of the stack, or if the stack is empty, or if the stack contains a ‘(‘, then push the current operator onto the stack.
-
-
 
 console.log(stack)
 let a = "";
