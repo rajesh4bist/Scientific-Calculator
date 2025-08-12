@@ -80,12 +80,12 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
 
         if (array[array.length - 1] == "+" || array.length == 0 || array[array.length - 1] == "×") {
             console.log(e.target.innerText)
-            array.push(e.target.innerText)
+            array.push(e.target.innerText) 
         }
         else {
-            array.push(e.target.innerText)
+            array.push(e.target.innerText);
             array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
-            array.pop()
+            array.pop();
         }
         console.log(array)
     })

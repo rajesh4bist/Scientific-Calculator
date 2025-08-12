@@ -1,8 +1,6 @@
-// let array = ["(", "A", "+", "B", ")", "*", "(", "C", "-", "D", ")"];
-let array = [ "A", "/", "(","B", "*", "C",")"];
-//A*(B+C)/D
-//ABC+*D/
-// console.log(array);
+//a+b*(c^d-e)^(f+g*h)-i
+let array = ["a","+","b","*","(","c","^","d","-","e",")","^","(","f","+","g","*","h",")","-","i"];
+// let array = ["(", "A", "+", "B", "*", "C", "-", "D", ")"]
 let stack = [];
 let output = [];
 
@@ -12,7 +10,8 @@ const precedence = {
     '*': 2,
     '/': 2,
     "(": 0,
-    ")": 0
+    ")": 0,
+    "^": 3
 };
 
 function getPrecedence(operator) {
@@ -55,6 +54,23 @@ array.forEach((element) => {
         }
 
         else {
+            while (getPrecedence(element) <= getPrecedence(stack[stack.length - 1])) {
+                output.push(stack[stack.length - 1]);
+                stack.pop();
+            }
+            stack.push(element);
+        }
+    }
+
+    if (element == "^") {
+        if (stack.length === 0 || getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
+            stack.push(element)
+        }
+        else if (getPrecedence(element) > getPrecedence(stack[stack.length - 1])) {
+            stack.push(element)
+        }
+
+        else if (getPrecedence(element) < getPrecedence(stack[stack.length - 1])) {
             output.push(stack[stack.length - 1]);
             stack.pop();
         }
@@ -77,6 +93,5 @@ let a = "";
 output.forEach((elem) => {
     a = a + " " + elem;
 })
-
 
 console.log(a)
