@@ -3,97 +3,90 @@ const multiplybtn = document.getElementById("multiplication-button");
 const subtractionbtn = document.getElementById("subtraction-button");
 const additionbtn = document.getElementById("addition-button");
 const equalbtn = document.getElementById("calculate-button");
-const decimalbtn = document.getElementById("point-button")
-const display = document.getElementById("display-container")
+const decimalbtn = document.getElementById("point-button");
+const display = document.getElementById("display-container");
+const clearbtn = document.getElementById("Clear-button");
 
-let result = "";
-let operation = "";
-let previousOperand = 0;
+let array = [];
 
-const DisplayValue = (value) => {
+additionbtn.addEventListener("click", (e) => {
+    display.innerText = display.innerText + e.target.innerText;
+    array.push(e.target.innerText);
+})
 
-    if (value === "." && result.includes(".")) {
-        return;
-    }
-    result += value;
-    UpdateDisplay();
-
-    if (value == "") {
-        display.innerText = 0;
-        result = "";
-    }
-}
-
-const UpdateDisplay = () => {
-    if (operation) {
-        display.innerText = previousOperand + "" + operation + "" + result;
-    }
-    else{
-        display.innerText = result
-    }
-}
+multiplybtn.addEventListener("click", (e) => {
+    display.innerText = display.innerText + e.target.innerText;
+    array.push(e.target.innerText);
+})
 
 
-document.getElementById("Clear-button").addEventListener("click", () => {
-    DisplayValue("");
+clearbtn.addEventListener("click", () => {
+    display.innerText = "0";
     console.clear();
 })
+equalbtn.addEventListener("click", () => {
+    calculate();
+    display.innerText = result;
+})
 
-//selecting number
+let result;
+
+const calculate = () => {
+    for (let i=0; i < array.length; i++) {
+        const element = array[i];
+        if (element == "×") {
+            console.log(i);
+            let num1 = array[i - 1];
+            let num2 = array[i + 1];
+            result = num1 * num2;
+            console.log(num1, num2, result)
+            array.splice(i - 1, 3, result);
+            console.log(array);
+            if (i != array.length - 1) {
+                calculate();
+            }
+        }
+
+         if (element == "+") {
+            console.log(i);
+            let num1 = parseInt(array[i - 1]);
+            let num2 = parseInt(array[i + 1]);
+            result = num1 + num2;
+            console.log(num1, num2, result)
+            array.splice(i - 1, 3, result);
+            console.log(array);
+            if (i != array.length - 1) {
+                calculate();
+            }
+        }
+    }
+    
+
+
+    clearbtn.addEventListener("click", () => {
+        array = [];
+    })
+}
+
+//Event Listeners for numbers
 Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys) => {
     NumericKeys.addEventListener("click", (e) => {
-        console.log(e.target)
-        DisplayValue(e.target.innerText);
+        if (display.innerText == "0") {
+            display.innerText = e.target.innerText;
+        }
+        else {
+            display.innerText = display.innerText + e.target.innerText;
+        }
+
+        if (array[array.length - 1] == "+" || array.length == 0 || array[array.length - 1] == "×") {
+            console.log(e.target.innerText)
+            array.push(e.target.innerText) 
+        }
+        else {
+            array.push(e.target.innerText);
+            array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
+            array.pop();
+        }
+        console.log(array)
     })
 })
-
-//selecting operator
-const selectoperator = (operatorvalue) => {
-    if (previousOperand !== "" && operation != "") {
-        calculateResult(); 
-    }
-    operation=operatorvalue;
-    previousOperand = parseInt(result);
-    result = "";
-    UpdateDisplay();
-}
-
-decimalbtn.addEventListener("click", () => {
-    DisplayValue(".")
-})
-additionbtn.addEventListener("click", () => {
-    selectoperator("+")
-});
-subtractionbtn.addEventListener("click", () => {
-    selectoperator("-")
-});
-multiplybtn.addEventListener("click", () =>{
-    selectoperator("×")
-});
-divsionbtn.addEventListener("click", () =>{
-    selectoperator("÷")
-});
-
-equalbtn.addEventListener("click", ()=>{
-
-})
-
-function updateresult(){
-    
-}
-
-
-
-
-
-
-
-
-
-
-
-
-let operatorlength = document.getElementsByClassName("operators");
-Array.from(operatorlength).forEach((value) => {
-    value.style.fontSize = "23px"
-});
