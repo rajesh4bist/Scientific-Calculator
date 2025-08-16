@@ -19,54 +19,28 @@ multiplybtn.addEventListener("click", (e) => {
     array.push(e.target.innerText);
 })
 
+divsionbtn.addEventListener("click", (e) => {
+    display.innerText = display.innerText + e.target.innerText;
+    array.push(e.target.innerText);
+})
+
+subtractionbtn.addEventListener("click", (e) => {
+    display.innerText = display.innerText + e.target.innerText;
+    array.push(e.target.innerText);
+})
 
 clearbtn.addEventListener("click", () => {
     display.innerText = "0";
     console.clear();
+    array = [];
 })
+
 equalbtn.addEventListener("click", () => {
-    calculate();
-    display.innerText = result;
+    let x = calculate();
+    display.innerText = x;
+    array = [];
+    array.push(x);
 })
-
-let result;
-
-const calculate = () => {
-    for (let i=0; i < array.length; i++) {
-        const element = array[i];
-        if (element == "×") {
-            console.log(i);
-            let num1 = array[i - 1];
-            let num2 = array[i + 1];
-            result = num1 * num2;
-            console.log(num1, num2, result)
-            array.splice(i - 1, 3, result);
-            console.log(array);
-            if (i != array.length - 1) {
-                calculate();
-            }
-        }
-
-         if (element == "+") {
-            console.log(i);
-            let num1 = parseInt(array[i - 1]);
-            let num2 = parseInt(array[i + 1]);
-            result = num1 + num2;
-            console.log(num1, num2, result)
-            array.splice(i - 1, 3, result);
-            console.log(array);
-            if (i != array.length - 1) {
-                calculate();
-            }
-        }
-    }
-    
-
-
-    clearbtn.addEventListener("click", () => {
-        array = [];
-    })
-}
 
 //Event Listeners for numbers
 Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys) => {
@@ -78,9 +52,9 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
             display.innerText = display.innerText + e.target.innerText;
         }
 
-        if (array[array.length - 1] == "+" || array.length == 0 || array[array.length - 1] == "×") {
+        if (array.length === 0 || /[+\-×÷]/.test(array[array.length - 1])) {
             console.log(e.target.innerText)
-            array.push(e.target.innerText) 
+            array.push(e.target.innerText)
         }
         else {
             array.push(e.target.innerText);
@@ -90,3 +64,132 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
         console.log(array)
     })
 })
+
+
+const calculate = () => {
+    let stack = [];
+    let output = [];
+
+    const precedence = {
+        '+': 1,
+        '-': 1,
+        '×': 2,
+        '÷': 2,
+        "(": 0,
+        ")": 0,
+        "^": 3
+    }
+
+    function getPrecedence(operator) {
+        return precedence[operator] || 0;
+    }
+
+    console.log(stack[stack.length - 1]);
+
+    array.forEach((element) => {
+
+        if (element === "(") {
+            stack.push("(");
+        }
+
+        if (element === ")") {
+            while (stack[stack.length - 1] !== "(") {
+                output.push(stack[stack.length - 1]);
+                stack.pop();
+            }
+            stack.pop();
+        }
+
+        if (/^\d+(\.\d+)?$/i.test(element)) {
+            output.push(element);
+        }
+
+        if (["+", "-", "×", "÷"].includes(element)) {
+            if (stack.length === 0) {
+                stack.push(element);
+            }
+
+            else if (getPrecedence(element) > getPrecedence(stack[stack.length - 1])) {
+                stack.push(element);
+            }
+
+            else if (getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
+                output.push(stack[stack.length - 1]);
+                stack.pop();
+                stack.push(element)
+            }
+
+            else {
+                while (getPrecedence(element) <= getPrecedence(stack[stack.length - 1])) {
+                    output.push(stack[stack.length - 1]);
+                    stack.pop();
+                }
+                stack.push(element);
+            }
+        }
+
+        if (element == "^") {
+            if (stack.length === 0 || getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
+                stack.push(element)
+            }
+            else if (getPrecedence(element) > getPrecedence(stack[stack.length - 1])) {
+                stack.push(element)
+            }
+
+            else if (getPrecedence(element) < getPrecedence(stack[stack.length - 1])) {
+                output.push(stack[stack.length - 1]);
+                stack.pop();
+            }
+        }
+    })
+
+    while (stack.length != 0) {
+        output.push(stack[stack.length - 1]);
+        stack.pop();
+    }
+
+    console.log(stack)
+    let a = "";
+    output.forEach((elem) => {
+        a = a + " " + elem;
+    })
+    console.log(a)
+
+
+    function isNumeric(value) {
+        return !isNaN(Number(value));
+    }
+
+    let res;
+
+    for (let i = 0; i < output.length; i++) {
+        if (output[i] == "×" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+            res = parseInt(output[i - 1]) * parseInt(output[i - 2]);
+            output.splice(i - 2, 3, res);
+            i = i - 2;
+        }
+        else if (output[i] == "+" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+            res = parseInt(output[i - 1]) + parseInt(output[i - 2]);
+            output.splice(i - 2, 3, res);
+            i = i - 2;
+        }
+        else if (output[i] == "-" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+            res = parseInt(output[i - 2]) - parseInt(output[i - 1]);
+            output.splice(i - 2, 3, res);
+            i = i - 2;
+        }
+        else if (output[i] == "÷" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+            res = parseInt(output[i - 2]) / parseInt(output[i - 1]);
+            output.splice(i - 2, 3, res);
+            i = i - 2;
+        }
+        else if (output[i] == "^" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+            res = Math.pow(parseInt(output[i - 2]), parseInt(output[i - 1]));
+            output.splice(i - 2, 3, res);
+            i = i - 2;
+        }
+    }
+    console.log(res)
+
+    return res;
+}

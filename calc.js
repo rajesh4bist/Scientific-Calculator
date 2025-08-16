@@ -32,14 +32,15 @@ subtractionbtn.addEventListener("click", (e) => {
 clearbtn.addEventListener("click", () => {
     display.innerText = "0";
     console.clear();
+    array = [];
 })
 
 equalbtn.addEventListener("click", () => {
     let x = calculate();
     display.innerText = x;
+    array = [];
+    array.push(x);
 })
-
-
 
 //Event Listeners for numbers
 Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys) => {
@@ -66,9 +67,6 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
 
 
 const calculate = () => {
-
-    // let array = ["(", "15", "+", "5", ")", "+", "(", "5", "^", "1", ")"];
-    // let array = ["(", "A", "+", "B", "*", "C", "-", "D", ")"]
     let stack = [];
     let output = [];
 
@@ -76,7 +74,7 @@ const calculate = () => {
         '+': 1,
         '-': 1,
         '×': 2,
-        '/': 2,
+        '÷': 2,
         "(": 0,
         ")": 0,
         "^": 3

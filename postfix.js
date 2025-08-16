@@ -1,5 +1,5 @@
 // let array = ["a","+","b","*","(","c","^","d","-","e",")","^","(","f","+","g","*","h",")","-","i"];
-let array = ["(", "a", "+", "b", "*", "c", ")", "^", "(", "d", "-", "e", "/", "f", ")", "+", "g", "*", "(", "h", "+", "i", "^", "j", ")", "-", "k", "/", "l", "+", "m"];
+let array = ["8","/","8","*","8"];
 
 let stack = [];
 let output = [];
@@ -34,7 +34,7 @@ array.forEach((element) => {
         stack.pop();
     }
 
-    if (/^[a-z]$/i.test(element)) {
+    if (/^[0-9]$/i.test(element)) {
         output.push(element);
     }
 
