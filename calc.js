@@ -170,7 +170,7 @@ const calculate = () => {
         "^": (a, b) => Math.pow(a, b)
     };
 
-    if (condition) {
+    if (output.length>1) {
         for (let i = 0; i < output.length; i++) {
             const op = operators[output[i]];
             if (op && isNumeric(output[i - 2]) && isNumeric(output[i - 1])) {
@@ -185,7 +185,6 @@ const calculate = () => {
     else {
         res = output[output.length - 1]
     }
-
 
     console.log(res)
 
