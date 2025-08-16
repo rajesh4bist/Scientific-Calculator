@@ -162,33 +162,31 @@ const calculate = () => {
 
     let res;
 
-    for (let i = 0; i < output.length; i++) {
-        if (output[i] == "×" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 1]) * parseInt(output[i - 2]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "+" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 1]) + parseInt(output[i - 2]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "-" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 2]) - parseInt(output[i - 1]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "÷" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 2]) / parseInt(output[i - 1]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "^" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = Math.pow(parseInt(output[i - 2]), parseInt(output[i - 1]));
-            output.splice(i - 2, 3, res);
-            i = i - 2;
+    const operators = {
+        "×": (a, b) => a * b,
+        "+": (a, b) => a + b,
+        "-": (a, b) => a - b,
+        "÷": (a, b) => a / b,
+        "^": (a, b) => Math.pow(a, b)
+    };
+
+    if (condition) {
+        for (let i = 0; i < output.length; i++) {
+            const op = operators[output[i]];
+            if (op && isNumeric(output[i - 2]) && isNumeric(output[i - 1])) {
+                const a = parseInt(output[i - 2]);
+                const b = parseInt(output[i - 1]);
+                res = op(a, b);
+                output.splice(i - 2, 3, res);
+                i = i - 2;
+            }
         }
     }
+    else {
+        res = output[output.length - 1]
+    }
+
+
     console.log(res)
 
     return res;
