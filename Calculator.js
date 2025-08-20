@@ -67,6 +67,55 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
     })
 })
 
+document.addEventListener("keydown", (e) => {
+    let key = e.key;
+
+    if (!/[\d]/.test(key)) {
+        return;
+    }
+    if (display.innerText == "0") {
+        display.innerText = key;
+    }
+    else {
+        display.innerText = display.innerText + key;
+    }
+
+    if (array.length === 0 || /[+\-×÷()]/.test(array[array.length - 1])) {
+        console.log(key)
+        array.push(key)
+    }
+    else {
+        array.push(key);
+        array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
+        array.pop();
+    }
+    console.log(array)
+})
+
+document.addEventListener("keydown", (e) => {
+
+    let key = e.key
+
+    if (!/^[+\-*/()]$/.test(key)) {
+        return;
+    }
+    if (e.key == "*") {
+        key = "×";
+    }
+    if (e.key == "/") {
+        key = "÷";
+    }
+    else {
+        if (display.innerText == "0") {
+            display.innerText = key;
+        }
+        else {
+            display.innerText = display.innerText + key;
+        }
+        array.push(key)
+    }
+})
+
 
 const calculate = () => {
     let stack = [];
