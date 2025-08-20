@@ -116,7 +116,7 @@ const calculate = () => {
             else if (getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
                 output.push(stack[stack.length - 1]);
                 stack.pop();
-                stack.push(element)
+                stack.push(element);
             }
 
             else {

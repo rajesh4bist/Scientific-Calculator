@@ -6,6 +6,8 @@ const equalbtn = document.getElementById("calculate-button");
 const decimalbtn = document.getElementById("point-button");
 const display = document.getElementById("display-container");
 const clearbtn = document.getElementById("Clear-button");
+const parenthesis1 = document.getElementById("parenthesis-open-button");
+const parenthesis2 = document.getElementById("parenthesis-close-button");
 
 let array = [];
 
