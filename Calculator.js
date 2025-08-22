@@ -231,6 +231,21 @@ const calculate = () => {
         return !isNaN(Number(value));
     }
 
+    const torad = (deg) => {
+        rad = deg * (Math.PI / 180)
+        return rad;
+    }
+
+    function cleanTrig(val) {
+        const epsilon = 1e-10;
+
+        if (Math.abs(val - 1) < epsilon) return 1;
+        if (Math.abs(val - 0.5) < epsilon) return 0.5;
+        if (Math.abs(val - 0) < epsilon) return 0;
+
+        return Number(val.toFixed(6));
+    }
+
     let res;
 
     if (output.length > 1) {
