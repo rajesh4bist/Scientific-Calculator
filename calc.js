@@ -126,7 +126,11 @@ const calculate = () => {
         '÷': 2,
         "(": 0,
         ")": 0,
-        "^": 3
+        "^": 3,
+        "tan": 4,
+        "sin": 4,
+        "cos": 4,
+        "√": 4
     }
 
     function getPrecedence(operator) {
@@ -188,6 +192,21 @@ const calculate = () => {
             else if (getPrecedence(element) < getPrecedence(stack[stack.length - 1])) {
                 output.push(stack[stack.length - 1]);
                 stack.pop();
+            }
+        }
+
+           if (["sin", "cos", "tan", "√"].includes(element)) {
+            if (stack.length === 0) {
+                stack.push(element);
+            }
+            // else if (getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
+            //     stack.push(element)
+            // }
+            //  else if (getPrecedence(element) < getPrecedence(stack[stack.length - 1])) {
+            //     stack.push(element)
+            // }
+            else if (getPrecedence(element) > getPrecedence(stack[stack.length - 1])) {
+                stack.push(element);
             }
         }
     })
