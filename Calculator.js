@@ -233,33 +233,67 @@ const calculate = () => {
 
     let res;
 
-    for (let i = 0; i < output.length; i++) {
-        if (output[i] == "×" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 1]) * parseInt(output[i - 2]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "+" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 1]) + parseInt(output[i - 2]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "-" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 2]) - parseInt(output[i - 1]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "÷" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = parseInt(output[i - 2]) / parseInt(output[i - 1]);
-            output.splice(i - 2, 3, res);
-            i = i - 2;
-        }
-        else if (output[i] == "^" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
-            res = Math.pow(parseInt(output[i - 2]), parseInt(output[i - 1]));
-            output.splice(i - 2, 3, res);
-            i = i - 2;
+    if (output.length > 1) {
+        for (let i = 0; i < output.length; i++) {
+            if (output[i] == "×" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+                res = parseInt(output[i - 1]) * parseInt(output[i - 2]);
+                output.splice(i - 2, 3, res);
+                i = i - 2;
+            }
+            else if (output[i] == "+" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+                res = parseInt(output[i - 1]) + parseInt(output[i - 2]);
+                output.splice(i - 2, 3, res);
+                i = i - 2;
+            }
+            else if (output[i] == "-" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+                res = parseInt(output[i - 2]) - parseInt(output[i - 1]);
+                output.splice(i - 2, 3, res);
+                i = i - 2;
+            }
+            else if (output[i] == "÷" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+                res = parseInt(output[i - 2]) / parseInt(output[i - 1]);
+                output.splice(i - 2, 3, res);
+                i = i - 2;
+            }
+            else if (output[i] == "^" && isNumeric(output[(i - 2)]) && isNumeric(output[(i - 1)])) {
+                res = Math.pow(parseInt(output[i - 2]), parseInt(output[i - 1]));
+                output.splice(i - 2, 3, res);
+                i = i - 2;
+            }
+            else if (output[i] == "√" && isNumeric(output[(i - 1)])) {
+                res = Math.sqrt(parseInt(output[i - 1]));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
+            }
+            else if (output[i] == "tan" && isNumeric(output[(i - 1)])) {
+                if (parseInt(output[(i - 1)]) == 90) {
+                    res = Infinity;
+                    output.splice(i - 1, 2, res);
+                    i = i - 1;
+                }
+                else {
+                    res = cleanTrig(Math.tan(torad((parseInt(output[i - 1])))));
+                    output.splice(i - 1, 2, res);
+                    i = i - 1;
+                }
+            }
+            else if (output[i] == "sin" && isNumeric(output[(i - 1)])) {
+                res = cleanTrig(Math.sin(torad((parseInt(output[i - 1])))));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
+            }
+            else if (output[i] == "cos" && isNumeric(output[(i - 1)])) {
+                res = cleanTrig(Math.cos(torad((parseInt(output[i - 1])))));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
+            }
         }
     }
+
+    else {
+        res = output[output.length - 1]
+    }
+
     console.log(res)
 
     return res;
