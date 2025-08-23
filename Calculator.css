@@ -24,6 +24,11 @@ button {
   font-family: "Inter", sans-serif;
   /* font-style: italic; */
 }
+
+#pi-button{
+font-size: 18px;
+}
+
 .Scientific-functions{
   margin-top: 10px;
 }

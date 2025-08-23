@@ -220,6 +220,7 @@ const calculate = () => {
     }
 
     console.log(stack)
+    
     let a = "";
     output.forEach((elem) => {
         a = a + " " + elem;
