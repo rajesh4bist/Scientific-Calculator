@@ -2,18 +2,21 @@ html {
   height: 100%;
   width: 100%;
 }
+
 body {
   height: 100%;
   width: 100%;
   background-color: #000000eb;
   font-family: "Inter", sans-serif;
 }
+
 .maincontainer {
   max-width: fit-content;
   margin-right: auto;
   margin-top: auto;
   margin-left: auto;
 }
+
 button {
   background-color: #333333;
   color: white;
@@ -25,13 +28,14 @@ button {
   /* font-style: italic; */
 }
 
-#pi-button{
-font-size: 18px;
+#pi-button {
+  font-size: 18px;
 }
 
-.Scientific-functions{
+.Scientific-functions {
   margin-top: 10px;
 }
+
 .container-one {
   display: flex;
   justify-content: center;
@@ -50,6 +54,7 @@ font-size: 18px;
   outline: none;
   cursor: pointer;
 }
+
 .function-buttons:active {
   background-color: #6a6767;
 }
@@ -78,15 +83,39 @@ font-size: 18px;
 
 .operators {
   background: linear-gradient(to bottom, #ff9500, #cc7700);
+  /* background: linear-gradient(to bottom, #0061B8, #003F7F); */
   color: white;
 }
-#Clear-button,#toggle-button,#percentage-button {
+
+.operators:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease-in;
+}
+
+.operators:hover {
+  background: linear-gradient(to bottom, #ff9500, #cc7700);
+  /* background: linear-gradient(to bottom, #0062C3, #00458B); */
+}
+
+.operators.pressed {
+  transform: scale(0.95);
+  transition: transform 0.1s ease-in;
+}
+
+
+#Clear-button,
+#toggle-button,
+#percentage-button {
   background-color: #6a6767;
 }
-#Clear-button:active,#toggle-button:active,#percentage-button:active {
+
+#Clear-button:active,
+#toggle-button:active,
+#percentage-button:active {
   background-color: #918f8f;
 }
-#display-container{
+
+#display-container {
   background-color: inherit;
   color: white;
   height: 95px;
@@ -98,4 +127,3 @@ font-size: 18px;
   box-sizing: border-box;
   padding-right: 6px;
 }
-
