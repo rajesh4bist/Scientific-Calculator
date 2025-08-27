@@ -7,6 +7,8 @@ const decimalbtn = document.getElementById("point-button");
 const display = document.getElementById("display-container");
 const clearbtn = document.getElementById("Clear-button");
 const sqrtbtn = document.getElementById("square-root-button");
+const sqrbtn = document.getElementById("square-button");
+const cubebtn = document.getElementById("cube-button");
 const parenthesis1 = document.getElementById("parenthesis-open-button");
 const parenthesis2 = document.getElementById("parenthesis-close-button");
 const tanbtn = document.getElementById("tan-button");
@@ -73,6 +75,18 @@ parenthesis2.addEventListener("click", (e) => {
         display.innerText = display.innerText + e.target.innerText;
         array.push(e.target.innerText);
     }
+})
+
+sqrbtn.addEventListener("click", () => {
+    display.innerHTML = display.innerHTML + "\u00B2"; 
+    array.push("^");
+    array.push("2");
+})
+
+cubebtn.addEventListener("click", () => {
+    display.innerHTML = display.innerHTML + "\u00B3";
+    array.push("^");
+    array.push("3");
 })
 
 topower.addEventListener("click", () => {
