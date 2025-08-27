@@ -15,6 +15,7 @@ const cosbtn = document.getElementById("cos-button");
 const topower = document.getElementById("topower-button");
 const cuberoot = document.getElementById("cube-root-button");
 const fractionbtn = document.getElementById("fraction-button");
+const factbtn = document.getElementById("factorial-button");
 
 let array = [];
 
@@ -137,6 +138,11 @@ cuberoot.addEventListener("click", (e) => {
     array.push("(");
 })
 
+factbtn.addEventListener("click", (e) => {
+    display.innerText = display.innerText + "!";
+    array.push("!");
+})
+
 fractionbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
         display.innerText = "1÷(";
@@ -225,7 +231,7 @@ document.addEventListener("keydown", (e) => {
 
     let key = e.key
 
-    if (!/^[+\-*/()]$/.test(key)) {
+    if (!/^[+\-*/()!]$/.test(key)) {
         return;
     }
     if (e.key == "*") {
@@ -244,6 +250,13 @@ document.addEventListener("keydown", (e) => {
     array.push(key)
 })
 
+const factorial = (fact) => {
+    let facto = 1;
+    for (let i = fact; i >= 1; i--) {
+        facto = facto * i;
+    }
+    return facto;
+}
 
 
 const calculate = () => {
@@ -264,7 +277,8 @@ const calculate = () => {
         "sin": 4,
         "cos": 4,
         "√": 4,
-        "3√": 4
+        "3√": 4,
+        "!": 4
     }
 
     function getPrecedence(operator) {
@@ -328,7 +342,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "3√"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "3√", "!"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
             }
@@ -438,6 +452,11 @@ const calculate = () => {
                 output.splice(i - 1, 2, res);
                 i = i - 1;
                 console.log(res)
+            }
+            else if (output[i] == "!" && isNumeric(output[(i - 1)])) {
+                res = factorial(parseFloat(output[i - 1]));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
             }
         }
     }
