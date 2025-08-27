@@ -126,4 +126,39 @@ button {
   font-size: xxx-large;
   box-sizing: border-box;
   padding-right: 6px;
+  white-space:nowrap;
 }
+
+#calculate-button {
+  place-items: center;
+  background: linear-gradient(to bottom, #ff9500, #cc7700);
+}
+
+#calculate-button .icon {
+  width: 90%;          
+  height: 200%; 
+  place-items: center;
+}
+
+#calculate-button .icon rect {
+  fill: currentColor;   
+}
+
+/* @font-face {
+  src: url('../fonts/EuphoriaScript-Regular.ttf') format('truetype');
+  font-family: "Euphoria Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+} */
+
+#e-button{
+ font-family: "Euphoria Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+
