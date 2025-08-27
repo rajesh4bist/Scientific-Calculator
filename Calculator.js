@@ -15,7 +15,10 @@ const cosbtn = document.getElementById("cos-button");
 const topower = document.getElementById("topower-button");
 const cuberoot = document.getElementById("cube-root-button");
 const fractionbtn = document.getElementById("fraction-button");
+const pibtn = document.getElementById("pi-button");
+const ebtn = document.getElementById("e-button");
 const factbtn = document.getElementById("factorial-button");
+const randbtn = document.getElementById("random-button");
 
 let array = [];
 
@@ -113,6 +116,39 @@ cosbtn.addEventListener("click", (e) => {
         display.innerText = display.innerText + "cos(";
         array.push(e.target.innerText);
         array.push("(")
+    }
+})
+
+pibtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerText = e.target.innerText;
+        array.push(Math.PI);
+    }
+    else {
+        display.innerText = display.innerText + e.target.innerText;
+        array.push(Math.PI);
+    }
+})
+
+ebtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerHTML = e.target.innerText;
+        array.push(Math.E);
+    }
+    else {
+        display.innerHTML = display.innerHTML + e.target.innerText;
+        array.push(Math.E);
+    }
+})
+
+randbtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerText = Math.random();
+        array.push(display.innerText);
+    }
+    else {
+        display.innerText = display.innerText + Math.random();
+        array.push(display.innerText);
     }
 })
 
