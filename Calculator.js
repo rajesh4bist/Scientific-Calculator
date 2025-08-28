@@ -23,6 +23,8 @@ const factbtn = document.getElementById("factorial-button");
 const randbtn = document.getElementById("random-button");
 const lnbtn = document.getElementById("ln-button");
 const sinhbtn = document.getElementById("sinh-button");
+const coshbtn = document.getElementById("cosh-button");
+const tanhbtn = document.getElementById("tanh-button");
 
 let array = [];
 
@@ -143,6 +145,32 @@ sinhbtn.addEventListener("click", (e) => {
     }
     else {
         display.innerText = display.innerText + "sinh(";
+        array.push(e.target.innerText);
+        array.push("(")
+    }
+})
+
+coshbtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerText = "cosh(";
+        array.push(e.target.innerText);
+        array.push("(");
+    }
+    else {
+        display.innerText = display.innerText + "cosh(";
+        array.push(e.target.innerText);
+        array.push("(")
+    }
+})
+
+tanhbtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerText = "tanh(";
+        array.push(e.target.innerText);
+        array.push("(");
+    }
+    else {
+        display.innerText = display.innerText + "tanh(";
         array.push(e.target.innerText);
         array.push("(")
     }
@@ -363,7 +391,9 @@ const calculate = () => {
         "3√": 4,
         "!": 4,
         "ln":4,
-        "sinh":4
+        "sinh":4,
+        "cosh":4,
+        "tanh":4
     }
 
     function getPrecedence(operator) {
@@ -427,7 +457,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "3√", "!", "ln","sinh"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "3√", "!", "ln","sinh","cosh","tanh"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
             }
@@ -553,7 +583,16 @@ const calculate = () => {
                 res = cleanTrig(Math.sinh(torad((parseFloat(output[i - 1])))));
                 output.splice(i - 1, 2, res);
                 i = i - 1;
-                // console.log(res)
+            }
+             else if (output[i] == "cosh" && isNumeric(output[(i - 1)])) {
+                res = cleanTrig(Math.cosh(torad((parseFloat(output[i - 1])))));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
+            }
+             else if (output[i] == "tanh" && isNumeric(output[(i - 1)])) {
+                res = cleanTrig(Math.tanh(torad((parseFloat(output[i - 1])))));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
             }
         }
     }
