@@ -3,6 +3,7 @@ html {
   width: 100%;
 }
 
+
 body {
   height: 100%;
   width: 100%;
@@ -12,8 +13,14 @@ body {
 }
 
 @font-face {
-  font-family: "lib" ;
-  src: url('../LibertinusSerifDisplay-Regular.ttf') format('.ttf')
+  font-family: "lib";
+  src: url(fonts/LibertinusSerifDisplay-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Lib Math";
+  /* src: url('/LibertinusMath-Regular.ttf'); */
+  src: url(fonts/LibertinusMath-Regular.ttf);
 }
 
 .maincontainer {
@@ -35,7 +42,7 @@ button {
 
 #pi-button {
   font-size: 18px;
-  font-family:'lib';
+  font-family: 'lib';
 }
 
 .Scientific-functions {
@@ -88,8 +95,8 @@ button {
 }
 
 .operators {
-  background: linear-gradient(to bottom, #ff9500, #cc7700);
-  /* background: linear-gradient(to bottom, #0061B8, #003F7F); */
+  /* background: linear-gradient(to bottom, #ff9500, #cc7700); */
+  background: linear-gradient(to bottom, #0061B8, #003F7F);
   color: white;
 }
 
@@ -99,8 +106,8 @@ button {
 }
 
 .operators:hover {
-  background: linear-gradient(to bottom, #ff9500, #cc7700);
-  /* background: linear-gradient(to bottom, #0062C3, #00458B); */
+  /* background: linear-gradient(to bottom, #ff9500, #cc7700); */
+  background: linear-gradient(to bottom, #0062C3, #00458B);
 }
 
 .operators.pressed {
@@ -132,40 +139,43 @@ button {
   font-size: xxx-large;
   box-sizing: border-box;
   padding-right: 6px;
-  white-space:nowrap;
 }
+
 
 #calculate-button {
   place-items: center;
-  background: linear-gradient(to bottom, #ff9500, #cc7700);
+  /* background: linear-gradient(to bottom, #ff9500, #cc7700); */
+  background: linear-gradient(to bottom, #0062C3, #00458B);
 }
 
 #calculate-button .icon {
-  width: 90%;          
-  height: 200%; 
+  width: 90%;
+  height: 200%;
   place-items: center;
 }
 
 #calculate-button .icon rect {
-  fill: currentColor;   
+  fill: currentColor;
 }
 
 @font-face {
-  src: url('EuphoriaScript-Regular.ttf');
+  src: url(fonts/EuphoriaScript-Regular.ttf);
   font-family: "Euphoria Script";
   font-weight: 400;
   font-style: normal;
 }
 
 
-#e-button{
- font-family: "Euphoria Script";
+#e-button {
+  font-family: "Euphoria Script";
   /* font-weight: 500; */
   font-style: normal;
   font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-} 
+}
 
-
+#cube-root-button {
+  font-family: 'Lib Math';
+}

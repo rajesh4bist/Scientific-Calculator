@@ -21,6 +21,8 @@ const pibtn = document.getElementById("pi-button");
 const ebtn = document.getElementById("e-button");
 const factbtn = document.getElementById("factorial-button");
 const randbtn = document.getElementById("random-button");
+const lnbtn = document.getElementById("ln-button");
+const sinhbtn = document.getElementById("sinh-button");
 
 let array = [];
 
@@ -133,6 +135,19 @@ cosbtn.addEventListener("click", (e) => {
     }
 })
 
+sinhbtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerText = "sinh(";
+        array.push(e.target.innerText);
+        array.push("(");
+    }
+    else {
+        display.innerText = display.innerText + "sinh(";
+        array.push(e.target.innerText);
+        array.push("(")
+    }
+})
+
 pibtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
         display.innerText = e.target.innerText;
@@ -205,6 +220,16 @@ fractionbtn.addEventListener("click", (e) => {
     array.push("(");
 })
 
+lnbtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerText = "ln(";
+    }
+    else {
+        display.innerText = display.innerText + "ln(";
+    }
+    array.push("ln");
+    array.push("(");
+})
 
 equalbtn.addEventListener("click", () => {
     let x = calculate();
@@ -336,7 +361,9 @@ const calculate = () => {
         "cos": 4,
         "√": 4,
         "3√": 4,
-        "!": 4
+        "!": 4,
+        "ln":4,
+        "sinh":4
     }
 
     function getPrecedence(operator) {
@@ -400,7 +427,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "3√", "!"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "3√", "!", "ln","sinh"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
             }
@@ -515,6 +542,18 @@ const calculate = () => {
                 res = factorial(parseFloat(output[i - 1]));
                 output.splice(i - 1, 2, res);
                 i = i - 1;
+            }
+            else if (output[i] == "ln" && isNumeric(output[(i - 1)])) {
+                res = Math.log(parseFloat(output[i - 1]));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
+            }
+
+             else if (output[i] == "sinh" && isNumeric(output[(i - 1)])) {
+                res = cleanTrig(Math.sinh(torad((parseFloat(output[i - 1])))));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
+                // console.log(res)
             }
         }
     }
