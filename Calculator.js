@@ -78,7 +78,7 @@ parenthesis2.addEventListener("click", (e) => {
 })
 
 sqrbtn.addEventListener("click", () => {
-    display.innerHTML = display.innerHTML + "\u00B2"; 
+    display.innerHTML = display.innerHTML + "\u00B2";
     array.push("^");
     array.push("2");
 })
@@ -302,10 +302,18 @@ document.addEventListener("keydown", (e) => {
 
 const factorial = (fact) => {
     let facto = 1;
-    for (let i = fact; i >= 1; i--) {
-        facto = facto * i;
+    if (fact < 0) {
+        return undefined;
     }
-    return facto;
+    else if (fact == 0) {
+        return 1;
+    }
+    else {
+        for (let i = fact; i >= 1; i--) {
+            facto = facto * i;
+        }
+        return facto;
+    }
 }
 
 
