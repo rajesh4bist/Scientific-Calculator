@@ -122,13 +122,14 @@ ebtn.addEventListener("click", (e) => {
 })
 
 randbtn.addEventListener("click", (e) => {
+    const randnum = Math.random().toFixed(10);
     if (display.innerText == "0") {
-        display.innerText = Math.random();
-        array.push(display.innerText);
+        display.innerText =randnum;
+        array.push(randnum);
     }
     else {
-        display.innerText = display.innerText + Math.random();
-        array.push(display.innerText);
+        display.innerText = display.innerText + randnum;
+        array.push(randnum);
     }
 })
 
@@ -647,9 +648,9 @@ const calculate = () => {
 
             let num1 = output[(i - 1)];
             let num2 = output[(i - 2)];
-            
+
             if (output[i] == "×" && isNumeric(num2) && isNumeric(num1)) {
-                res = parseFloat(num1) * parseFloat(num2);
+                res = cleanTrig(parseFloat(num1) * parseFloat(num2));
                 output.splice(i - 2, 3, res);
                 i = i - 2;
             }
@@ -768,7 +769,7 @@ const calculate = () => {
     }
 
     else {
-        res = output[output.length - 1]
+        res = cleanTrig(output[output.length - 1])
     }
 
     console.log(res)
