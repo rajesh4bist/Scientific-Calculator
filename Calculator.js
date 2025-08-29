@@ -98,84 +98,6 @@ topower.addEventListener("click", () => {
     array.push("^");
 })
 
-tanbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = "tan(";
-        array.push(e.target.innerText);
-        array.push("(");
-    }
-    else {
-        display.innerText = display.innerText + "tan(";
-        array.push(e.target.innerText);
-        array.push("(")
-    }
-})
-
-sinbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = "sin(";
-        array.push(e.target.innerText);
-        array.push("(");
-    }
-    else {
-        display.innerText = display.innerText + "sin(";
-        array.push(e.target.innerText);
-        array.push("(")
-    }
-})
-
-cosbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = "cos(";
-        array.push(e.target.innerText);
-        array.push("(");
-    }
-    else {
-        display.innerText = display.innerText + "cos(";
-        array.push(e.target.innerText);
-        array.push("(")
-    }
-})
-
-sinhbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = "sinh(";
-        array.push(e.target.innerText);
-        array.push("(");
-    }
-    else {
-        display.innerText = display.innerText + "sinh(";
-        array.push(e.target.innerText);
-        array.push("(")
-    }
-})
-
-coshbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = "cosh(";
-        array.push(e.target.innerText);
-        array.push("(");
-    }
-    else {
-        display.innerText = display.innerText + "cosh(";
-        array.push(e.target.innerText);
-        array.push("(")
-    }
-})
-
-tanhbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = "tanh(";
-        array.push(e.target.innerText);
-        array.push("(");
-    }
-    else {
-        display.innerText = display.innerText + "tanh(";
-        array.push(e.target.innerText);
-        array.push("(")
-    }
-})
-
 pibtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
         display.innerText = e.target.innerText;
@@ -258,6 +180,202 @@ lnbtn.addEventListener("click", (e) => {
     array.push("ln");
     array.push("(");
 })
+
+
+
+let istoggled = false;
+secondbtn.addEventListener("click", () => {
+    istoggled = !istoggled;
+    console.log(istoggled)
+
+    if (istoggled) {
+        sinbtn.innerHTML = "sin<sup>-1<sup>"
+        cosbtn.innerHTML = "cos<sup>-1<sup>"
+        tanbtn.innerHTML = "tan<sup>-1<sup>"
+        sinhbtn.innerHTML = "sinh<sup>-1<sup>"
+        coshbtn.innerHTML = "cosh<sup>-1<sup>"
+        tanhbtn.innerHTML = "tanh<sup>-1<sup>"
+
+    }
+    else {
+        sinbtn.innerText = "sin";
+        cosbtn.innerText = "cos";
+        tanbtn.innerText = "tan";
+        sinhbtn.innerText = "sinh";
+        coshbtn.innerText = "cosh";
+        tanhbtn.innerText = "tanh";
+
+    }
+})
+
+tanbtn.addEventListener("click", (e) => {
+    if (!istoggled) {
+        if (display.innerText == "0") {
+            display.innerText = "tan(";
+            array.push(e.target.innerText);
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "tan(";
+            array.push(e.target.innerText);
+            array.push("(")
+        }
+    }
+
+    else {
+        if (display.innerText == "0") {
+            display.innerText = "atan(";
+            array.push("atan");
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "atan(";
+            array.push("atan");
+            array.push("(")
+        }
+
+    }
+})
+
+sinbtn.addEventListener("click", (e) => {
+    if (!istoggled) {
+        if (display.innerText == "0") {
+            display.innerText = "sin(";
+            array.push(e.target.innerText);
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "sin(";
+            array.push(e.target.innerText);
+            array.push("(")
+        }
+    }
+
+    else {
+        if (display.innerText == "0") {
+            display.innerText = "asin(";
+            array.push("asin");
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "asin(";
+            array.push("asin");
+            array.push("(")
+        }
+    }
+})
+
+cosbtn.addEventListener("click", (e) => {
+    if (!istoggled) {
+        if (display.innerText == "0") {
+            display.innerText = "cos(";
+            array.push(e.target.innerText);
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "cos(";
+            array.push(e.target.innerText);
+            array.push("(")
+        }
+    }
+
+    else {
+        if (display.innerText == "0") {
+            display.innerText = "acos(";
+            array.push("acos");
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "acos(";
+            array.push("acos");
+            array.push("(")
+        }
+    }
+})
+
+sinhbtn.addEventListener("click", (e) => {
+    if (!istoggled) {
+        if (display.innerText == "0") {
+            display.innerText = "sinh(";
+            array.push(e.target.innerText);
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "sinh(";
+            array.push(e.target.innerText);
+            array.push("(")
+        }
+    }
+    else {
+        if (display.innerText == "0") {
+            display.innerText = "asinh(";
+            array.push("asinh");
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "asinh(";
+            array.push("asinh");
+            array.push("(")
+        }
+    }
+})
+
+coshbtn.addEventListener("click", (e) => {
+    if (!istoggled) {
+        if (display.innerText == "0") {
+            display.innerText = "cosh(";
+            array.push(e.target.innerText);
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "cosh(";
+            array.push(e.target.innerText);
+            array.push("(")
+        }
+    }
+
+    else {
+        if (display.innerText == "0") {
+            display.innerText = "acosh(";
+            array.push("acosh");
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "acosh(";
+            array.push("acosh");
+            array.push("(")
+        }
+    }
+})
+
+tanhbtn.addEventListener("click", (e) => {
+    if (!istoggled) {
+        if (display.innerText == "0") {
+            display.innerText = "tanh(";
+            array.push(e.target.innerText);
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "tanh(";
+            array.push(e.target.innerText);
+            array.push("(")
+        }
+    }
+    else {
+        if (display.innerText == "0") {
+            display.innerText = "atanh(";
+            array.push("atanh");
+            array.push("(");
+        }
+        else {
+            display.innerText = display.innerText + "atanh(";
+            array.push("atanh");
+            array.push("(")
+        }
+    }
+})
+
+
 
 equalbtn.addEventListener("click", () => {
     let x = calculate();
@@ -353,6 +471,7 @@ document.addEventListener("keydown", (e) => {
     array.push(key)
 })
 
+
 const factorial = (fact) => {
     let facto = 1;
     if (fact < 0) {
@@ -390,10 +509,10 @@ const calculate = () => {
         "√": 4,
         "3√": 4,
         "!": 4,
-        "ln":4,
-        "sinh":4,
-        "cosh":4,
-        "tanh":4
+        "ln": 4,
+        "sinh": 4,
+        "cosh": 4,
+        "tanh": 4
     }
 
     function getPrecedence(operator) {
@@ -457,7 +576,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "3√", "!", "ln","sinh","cosh","tanh"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "3√", "!", "ln", "sinh", "cosh", "tanh"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
             }
@@ -579,17 +698,17 @@ const calculate = () => {
                 i = i - 1;
             }
 
-             else if (output[i] == "sinh" && isNumeric(output[(i - 1)])) {
+            else if (output[i] == "sinh" && isNumeric(output[(i - 1)])) {
                 res = cleanTrig(Math.sinh(torad((parseFloat(output[i - 1])))));
                 output.splice(i - 1, 2, res);
                 i = i - 1;
             }
-             else if (output[i] == "cosh" && isNumeric(output[(i - 1)])) {
+            else if (output[i] == "cosh" && isNumeric(output[(i - 1)])) {
                 res = cleanTrig(Math.cosh(torad((parseFloat(output[i - 1])))));
                 output.splice(i - 1, 2, res);
                 i = i - 1;
             }
-             else if (output[i] == "tanh" && isNumeric(output[(i - 1)])) {
+            else if (output[i] == "tanh" && isNumeric(output[(i - 1)])) {
                 res = cleanTrig(Math.tanh(torad((parseFloat(output[i - 1])))));
                 output.splice(i - 1, 2, res);
                 i = i - 1;

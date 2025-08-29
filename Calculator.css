@@ -34,7 +34,7 @@ button {
   background-color: #333333;
   color: white;
   margin: 3px;
-  padding: 10px;
+  padding: 3px;
   border-color: none;
   font-family: "Inter", sans-serif;
   /* font-style: italic; */
@@ -179,3 +179,8 @@ button {
 #cube-root-button {
   font-family: 'Lib Math';
 }
+
+/* .sup-small {
+  font-size: 6px;      
+  vertical-align: super; 
+} */
