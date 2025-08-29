@@ -211,173 +211,29 @@ secondbtn.addEventListener("click", () => {
     }
 })
 
-tanbtn.addEventListener("click", (e) => {
-    if (!istoggled) {
-        if (display.innerText == "0") {
-            display.innerText = "tan(";
-            array.push(e.target.innerText);
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "tan(";
-            array.push(e.target.innerText);
-            array.push("(")
-        }
-    }
+// Trigonometric functions
+const trigButtons = [
+    { btn: tanbtn, normal: "tan", inverse: "atan" },
+    { btn: sinbtn, normal: "sin", inverse: "asin" },
+    { btn: cosbtn, normal: "cos", inverse: "acos" },
+    { btn: sinhbtn, normal: "sinh", inverse: "asinh" },
+    { btn: coshbtn, normal: "cosh", inverse: "acosh" },
+    { btn: tanhbtn, normal: "tanh", inverse: "atanh" }
+];
 
-    else {
-        if (display.innerText == "0") {
-            display.innerText = "atan(";
-            array.push("atan");
-            array.push("(");
+trigButtons.forEach(({ btn, normal, inverse }) => {
+    btn.addEventListener("click", () => {
+        const func = !istoggled ? normal : inverse;
+        if (display.innerText === "0") {
+            display.innerHTML = `${func}(`;
         }
         else {
-            display.innerText = display.innerText + "atan(";
-            array.push("atan");
-            array.push("(")
+            display.innerHTML += `${func}(`;
         }
-
-    }
-})
-
-sinbtn.addEventListener("click", (e) => {
-    if (!istoggled) {
-        if (display.innerText == "0") {
-            display.innerText = "sin(";
-            array.push(e.target.innerText);
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "sin(";
-            array.push(e.target.innerText);
-            array.push("(")
-        }
-    }
-
-    else {
-        if (display.innerText == "0") {
-            display.innerText = "asin(";
-            array.push("asin");
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "asin(";
-            array.push("asin");
-            array.push("(")
-        }
-    }
-})
-
-cosbtn.addEventListener("click", (e) => {
-    if (!istoggled) {
-        if (display.innerText == "0") {
-            display.innerText = "cos(";
-            array.push(e.target.innerText);
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "cos(";
-            array.push(e.target.innerText);
-            array.push("(")
-        }
-    }
-
-    else {
-        if (display.innerText == "0") {
-            display.innerText = "acos(";
-            array.push("acos");
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "acos(";
-            array.push("acos");
-            array.push("(")
-        }
-    }
-})
-
-sinhbtn.addEventListener("click", (e) => {
-    if (!istoggled) {
-        if (display.innerText == "0") {
-            display.innerText = "sinh(";
-            array.push(e.target.innerText);
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "sinh(";
-            array.push(e.target.innerText);
-            array.push("(")
-        }
-    }
-    else {
-        if (display.innerText == "0") {
-            display.innerText = "asinh(";
-            array.push("asinh");
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "asinh(";
-            array.push("asinh");
-            array.push("(")
-        }
-    }
-})
-
-coshbtn.addEventListener("click", (e) => {
-    if (!istoggled) {
-        if (display.innerText == "0") {
-            display.innerText = "cosh(";
-            array.push(e.target.innerText);
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "cosh(";
-            array.push(e.target.innerText);
-            array.push("(")
-        }
-    }
-
-    else {
-        if (display.innerText == "0") {
-            display.innerText = "acosh(";
-            array.push("acosh");
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "acosh(";
-            array.push("acosh");
-            array.push("(")
-        }
-    }
-})
-
-tanhbtn.addEventListener("click", (e) => {
-    if (!istoggled) {
-        if (display.innerText == "0") {
-            display.innerText = "tanh(";
-            array.push(e.target.innerText);
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "tanh(";
-            array.push(e.target.innerText);
-            array.push("(")
-        }
-    }
-    else {
-        if (display.innerText == "0") {
-            display.innerText = "atanh(";
-            array.push("atanh");
-            array.push("(");
-        }
-        else {
-            display.innerText = display.innerText + "atanh(";
-            array.push("atanh");
-            array.push("(")
-        }
-    }
-})
-
+        array.push(func);
+        array.push("(");
+    });
+});
 
 
 equalbtn.addEventListener("click", () => {
