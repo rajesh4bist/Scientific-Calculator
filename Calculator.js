@@ -27,6 +27,8 @@ const coshbtn = document.getElementById("cosh-button");
 const tanhbtn = document.getElementById("tanh-button");
 const secondbtn = document.getElementById("second-button");
 const logbtn = document.getElementById("log-button");
+const percentbtn = document.getElementById("percentage-button");
+const pointbtn = document.getElementById("point-button");
 
 let array = [];
 
@@ -53,6 +55,50 @@ subtractionbtn.addEventListener("click", (e) => {
     else {
         display.innerText = display.innerText + e.target.innerText;
         array.push(e.target.innerText);
+    }
+})
+
+percentbtn.addEventListener("click", (e) => {
+    display.innerText = display.innerText + e.target.innerText;
+    array.push("÷");
+    array.push("100");
+})
+
+pointbtn.addEventListener("click", (e) => {
+    if (array.length > 0 && array[array.length - 1].includes(".")) {
+        return;
+    }
+
+    if (display.innerText == "0") {
+        display.innerText = display.innerText + e.target.innerText;
+        array.push(`0${e.target.innerText}`)
+    }
+    else {
+
+        display.innerText = display.innerText + e.target.innerText;
+        array.push(e.target.innerText);
+        array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
+        array.pop();
+    }
+})
+
+document.addEventListener("keydown", (e) => {
+    key = e.key;
+    if (key !== ".") {
+        return;
+    }
+    if (array.length > 0 && array[array.length - 1].includes(".")) {
+        return;
+    }
+    if (display.innerText == "0") {
+        display.innerText = display.innerText + ".";
+        array.push(`0.`)
+    }
+    else {
+        display.innerText = display.innerText + ".";
+        array.push(".");
+        array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
+        array.pop();
     }
 })
 
@@ -125,7 +171,7 @@ ebtn.addEventListener("click", (e) => {
 randbtn.addEventListener("click", (e) => {
     const randnum = Math.random().toFixed(10);
     if (display.innerText == "0") {
-        display.innerText =randnum;
+        display.innerText = randnum;
         array.push(randnum);
     }
     else {
@@ -189,7 +235,7 @@ logbtn.addEventListener("click", (e) => {
         display.innerText = "log\u2081\u2080(";
     }
     else {
-        display.innerText = display.innerText +  "log\u2081\u2080(";
+        display.innerText = display.innerText + "log\u2081\u2080(";
     }
     array.push("log");
     array.push("(");
@@ -287,7 +333,6 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
             array.pop();
         }
         console.log(array)
-        // NumericKeys.blur();
     })
 })
 
@@ -393,7 +438,7 @@ const calculate = () => {
         "asinh": 4,
         "acosh": 4,
         "atanh": 4,
-        "log":4
+        "log": 4
     }
 
     function getPrecedence(operator) {
@@ -457,7 +502,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "3√", "!", "ln","log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "3√", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
             }
