@@ -26,6 +26,7 @@ const sinhbtn = document.getElementById("sinh-button");
 const coshbtn = document.getElementById("cosh-button");
 const tanhbtn = document.getElementById("tanh-button");
 const secondbtn = document.getElementById("second-button");
+const logbtn = document.getElementById("log-button");
 
 let array = [];
 
@@ -180,6 +181,17 @@ lnbtn.addEventListener("click", (e) => {
         display.innerText = display.innerText + "ln(";
     }
     array.push("ln");
+    array.push("(");
+})
+
+logbtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        display.innerText = "log\u2081\u2080(";
+    }
+    else {
+        display.innerText = display.innerText +  "log\u2081\u2080(";
+    }
+    array.push("log");
     array.push("(");
 })
 
@@ -380,7 +392,8 @@ const calculate = () => {
         "tanh": 4,
         "asinh": 4,
         "acosh": 4,
-        "atanh": 4
+        "atanh": 4,
+        "log":4
     }
 
     function getPrecedence(operator) {
@@ -444,7 +457,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "3√", "!", "ln", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "3√", "!", "ln","log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
             }
@@ -571,6 +584,11 @@ const calculate = () => {
             }
             else if (output[i] == "ln" && isNumeric(num1)) {
                 res = Math.log(parseFloat(num1));
+                output.splice(i - 1, 2, res);
+                i = i - 1;
+            }
+            else if (output[i] == "log" && isNumeric(num1)) {
+                res = Math.log10(parseFloat(num1));
                 output.splice(i - 1, 2, res);
                 i = i - 1;
             }
