@@ -557,138 +557,55 @@ const calculate = () => {
 
     let res;
 
+    const binaryop = {
+        "×": (a, b) => a * b,
+        "+": (a, b) => a + b,
+        "-": (a, b) => a - b,
+        "÷": (a, b) => a / b,
+        "^": (a, b) => Math.pow(a, b),
+    }
+
+    const unaryop = {
+        "√": (x) => Math.sqrt(x),
+        "∛": (x) => Math.cbrt(x),
+        "tan": (x) => (x == 90) ? Infinity : cleanTrig(Math.tan(torad(x))),
+        "sin": (x) => cleanTrig(Math.sin(torad(x))),
+        "cos": x => cleanTrig(Math.cos(torad(x))),
+        "!": x => factorial(x),
+        "ln": x => Math.log(x),
+        "asin": x => todeg(Math.asin(x)),
+        "acos": x => todeg(Math.acos(x)),
+        "atan": x => todeg(Math.atan(x)),
+        "sinh": x => cleanTrig(Math.sinh(torad(x))),
+        "cosh": x => cleanTrig(Math.cosh(torad(x))),
+        "tanh": x => cleanTrig(Math.tanh(torad(x))),
+        "asinh": x => Math.asinh(x),
+        "acosh": x => Math.acosh(x),
+        "atanh": x => Math.atanh(x)
+    }
+
     if (output.length > 1) {
         for (let i = 0; i < output.length; i++) {
 
-            let num1 = output[(i - 1)];
-            let num2 = output[(i - 2)];
+            let a = parseFloat(output[(i - 1)]);
+            let b = parseFloat(output[(i - 2)]);
 
-            if (output[i] == "×" && isNumeric(num2) && isNumeric(num1)) {
-                res = cleanTrig(parseFloat(num1) * parseFloat(num2));
+            if (binaryop[output[i]] && isNumeric(a) && isNumeric(b)) {
+                res = binaryop[output[i]](b, a);
                 output.splice(i - 2, 3, res);
                 i = i - 2;
             }
-            else if (output[i] == "+" && isNumeric(num2) && isNumeric(num1)) {
-                res = parseFloat(num1) + parseFloat(num2);
-                output.splice(i - 2, 3, res);
-                i = i - 2;
-            }
-            else if (output[i] == "-" && isNumeric(num2) && isNumeric(num1)) {
-                res = parseFloat(num2) - parseFloat(num1);
-                output.splice(i - 2, 3, res);
-                i = i - 2;
-            }
-            else if (output[i] == "÷" && isNumeric(num2) && isNumeric(num1)) {
-                res = parseFloat(num2) / parseFloat(num1);
-                output.splice(i - 2, 3, res);
-                i = i - 2;
-            }
-            else if (output[i] == "^" && isNumeric(num2) && isNumeric(num1)) {
-                res = Math.pow(parseFloat(num2), parseFloat(num1));
-                output.splice(i - 2, 3, res);
-                i = i - 2;
-            }
-            else if (output[i] == "√" && isNumeric(num1)) {
-                res = Math.sqrt(parseFloat(num1));
+            else if (unaryop[output[i]] && isNumeric(a)) {
+                res = unaryop[output[i]](a);
                 output.splice(i - 1, 2, res);
                 i = i - 1;
             }
-            else if (output[i] == "3√" && isNumeric(num1)) {
-                res = Math.cbrt(parseFloat(num1));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "tan" && isNumeric(num1)) {
-                if (parseInt(num1) == 90) {
-                    res = Infinity;
-                    output.splice(i - 1, 2, res);
-                    i = i - 1;
-                }
-                else {
-                    res = cleanTrig(Math.tan(torad((parseFloat(num1)))));
-                    output.splice(i - 1, 2, res);
-                    i = i - 1;
-                }
-            }
-            else if (output[i] == "sin" && isNumeric(num1)) {
-                res = cleanTrig(Math.sin(torad((parseFloat(num1)))));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-                console.log(res)
-            }
-            else if (output[i] == "cos" && isNumeric(num1)) {
-                res = cleanTrig(Math.cos(torad((parseFloat(num1)))));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-                console.log(res)
-            }
-            else if (output[i] == "!" && isNumeric(num1)) {
-                res = factorial(parseFloat(num1));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "ln" && isNumeric(num1)) {
-                res = Math.log(parseFloat(num1));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "log" && isNumeric(num1)) {
-                res = Math.log10(parseFloat(num1));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "sinh" && isNumeric(num1)) {
-                res = cleanTrig(Math.sinh(torad((parseFloat(num1)))));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "cosh" && isNumeric(num1)) {
-                res = cleanTrig(Math.cosh(torad((parseFloat(num1)))));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "tanh" && isNumeric(num1)) {
-                res = cleanTrig(Math.tanh(torad((parseFloat(num1)))));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "asin" && isNumeric(num1)) {
-                res = todeg(Math.asin(parseFloat(num1)));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-                console.log(output)
-            }
-            else if (output[i] == "acos" && isNumeric(num1)) {
-                res = todeg(Math.acos(parseFloat(num1)));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "atan" && isNumeric(num1)) {
-                res = todeg(Math.atan(parseFloat(num1)));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "asinh" && isNumeric(num1)) {
-                res = cleanTrig(Math.asinh(parseFloat(num1)));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "acosh" && isNumeric(num1)) {
-                res = cleanTrig(Math.acosh(parseFloat(num1)));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-            else if (output[i] == "atanh" && isNumeric(num1)) {
-                res = cleanTrig(Math.atanh(parseFloat(num1)));
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
-
+            
         }
     }
 
     else {
-        res = cleanTrig(output[output.length - 1])
+        res = output[output.length - 1]
     }
 
     console.log(res)
