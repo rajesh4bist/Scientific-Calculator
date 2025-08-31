@@ -33,21 +33,55 @@ const pointbtn = document.getElementById("point-button");
 let array = [];
 
 additionbtn.addEventListener("click", (e) => {
+    if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
+        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        array.pop();
+        array.push(e.target.innerText)
+        console.log(array);
+        return;
+    }
+
     display.innerText = display.innerText + e.target.innerText;
     array.push(e.target.innerText);
 })
 
 multiplybtn.addEventListener("click", (e) => {
+    if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
+        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        array.pop();
+        array.push(e.target.innerText)
+        console.log(array);
+        return;
+    }
+
     display.innerText = display.innerText + e.target.innerText;
     array.push(e.target.innerText);
+    console.log(array)
 })
 
 divsionbtn.addEventListener("click", (e) => {
+    if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
+        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        array.pop();
+        array.push(e.target.innerText)
+        console.log(array);
+        return;
+    }
+
     display.innerText = display.innerText + e.target.innerText;
     array.push(e.target.innerText);
+    console.log(array);
 })
 
 subtractionbtn.addEventListener("click", (e) => {
+    if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
+        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        array.pop();
+        array.push(e.target.innerText)
+        console.log(array);
+        return;
+    }
+    
     if (display.innerText == "0") {
         display.innerText = e.target.innerText;
         array.push(e.target.innerText);
@@ -378,6 +412,15 @@ document.addEventListener("keydown", (e) => {
         key = "÷";
     }
 
+    if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
+        display.innerText = display.innerText.slice(0, -1) + key;
+        array.pop();
+        array.push(key)
+        console.log(array);
+        return;
+    }
+
+
     if (display.innerText == "0") {
         display.innerText = key;
     }
@@ -506,9 +549,9 @@ const calculate = () => {
             if (stack.length === 0) {
                 stack.push(element);
             }
-            // else if (getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
-            //     stack.push(element)
-            // }
+            else if (getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
+                stack.push(element)
+            }
             //  else if (getPrecedence(element) < getPrecedence(stack[stack.length - 1])) {
             //     stack.push(element)
             // }
@@ -600,7 +643,7 @@ const calculate = () => {
                 output.splice(i - 1, 2, res);
                 i = i - 1;
             }
-            
+
         }
     }
 
