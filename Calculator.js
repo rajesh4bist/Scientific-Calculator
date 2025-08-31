@@ -41,7 +41,13 @@ additionbtn.addEventListener("click", (e) => {
         return;
     }
 
-    display.innerText = display.innerText + e.target.innerText;
+    if (display.innerText == "0") {
+        display.innerText = display.innerText + e.target.innerText;
+        array.push(0)
+    }
+    else {
+        display.innerText = display.innerText + e.target.innerText;
+    }
     array.push(e.target.innerText);
 })
 
@@ -54,9 +60,14 @@ multiplybtn.addEventListener("click", (e) => {
         return;
     }
 
-    display.innerText = display.innerText + e.target.innerText;
+    if (display.innerText == "0") {
+        display.innerText = display.innerText + e.target.innerText;
+        array.push(0)
+    }
+    else {
+        display.innerText = display.innerText + e.target.innerText;
+    }
     array.push(e.target.innerText);
-    console.log(array)
 })
 
 divsionbtn.addEventListener("click", (e) => {
@@ -68,9 +79,14 @@ divsionbtn.addEventListener("click", (e) => {
         return;
     }
 
-    display.innerText = display.innerText + e.target.innerText;
+    if (display.innerText == "0") {
+        display.innerText = display.innerText + e.target.innerText;
+        array.push(0)
+    }
+    else {
+        display.innerText = display.innerText + e.target.innerText;
+    }
     array.push(e.target.innerText);
-    console.log(array);
 })
 
 subtractionbtn.addEventListener("click", (e) => {
@@ -81,7 +97,7 @@ subtractionbtn.addEventListener("click", (e) => {
         console.log(array);
         return;
     }
-    
+
     if (display.innerText == "0") {
         display.innerText = e.target.innerText;
         array.push(e.target.innerText);
