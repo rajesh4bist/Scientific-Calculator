@@ -153,20 +153,25 @@ document.addEventListener("keydown", (e) => {
 })
 
 clearbtn.addEventListener("click", () => {
-    
-    if (clearbtn.innerText === "C") {
+
+    if (clearbtn.innerText == "C") {
         // console.log(array[array.length - 1].length)
-        if (array[array.length - 1].length == 1) {
+        let str = array[array.length - 1];
+        if (str.length == 1) {
             array.pop();
-            display.innerText=display.innerText.slice(0,-1)
         }
-        else if (array[array.length - 1].length > 1) {
+        else if (str.length > 1) {
+            str = str.slice(0, -1);
             array[array.length - 1] = array[array.length - 1].slice(0, -1);
-            display.innerText=display.innerText.slice(0,-1)
         }
+        display.innerText = display.innerText.slice(0, -1);
     }
-    // console.clear();
-    // array = [];
+    else if (clearbtn.innerText == "AC") {
+        display.innerText = "0"
+        // console.clear();
+        array = [];
+    }
+
 })
 
 parenthesis1.addEventListener("click", (e) => {
@@ -359,7 +364,8 @@ equalbtn.addEventListener("click", () => {
     let x = calculate();
     display.innerText = x;
     array = [];
-    array.push(x);
+    let str = String(x)
+    array.push(str);
 })
 
 document.addEventListener("keydown", (e) => {
@@ -476,12 +482,16 @@ const factorial = (fact) => {
 
 Array.from(document.getElementsByTagName("button")).forEach((elem) => {
     elem.addEventListener("click", () => {
-        if (array.length > 0) {
+        if (elem == equalbtn) {
+            clearbtn.innerText = "AC";
+            return;
+        }
+        else if (array.length > 0) {
             clear();
         }
         else if (array.length == 0) {
-            display.innerText="0"
-            clearbtn.innerText = "AC"
+            display.innerText = "0";
+            clearbtn.innerText = "AC";
         }
 
     })
