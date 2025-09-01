@@ -152,27 +152,56 @@ document.addEventListener("keydown", (e) => {
     }
 })
 
-clearbtn.addEventListener("click", () => {
-
-    if (clearbtn.innerText == "C") {
-        // console.log(array[array.length - 1].length)
-        let str = array[array.length - 1];
-        if (str.length == 1) {
+let timer;
+clearbtn.addEventListener("mousedown", () => {
+    if (clearbtn.innerText !== "C") {
+        return;
+    };
+    timer = setTimeout(() => {
+        while (array.length > 0) {
             array.pop();
         }
-        else if (str.length > 1) {
-            str = str.slice(0, -1);
-            array[array.length - 1] = array[array.length - 1].slice(0, -1);
-        }
-        display.innerText = display.innerText.slice(0, -1);
-    }
-    else if (clearbtn.innerText == "AC") {
+
         display.innerText = "0"
-        // console.clear();
+    }, 500);
+})
+clearbtn.addEventListener("mouseup", () => {
+    clearTimeout(timer);
+})
+clearbtn.addEventListener("mouseleave", () => {
+    clearTimeout(timer); 
+});
+
+clearbtn.addEventListener("click", () => {
+
+    if (clearbtn.innerText == "AC") {
+        display.innerText = "0";
+        console.clear();
         array = [];
+        return;
     }
 
-})
+    let str = array[array.length - 1];
+
+    const funcs = ["sin", "cos", "tan", "√", "∛", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"];
+
+    if (str == "(" && funcs.includes(array[array.length - 2])) {
+        let funcname = (array[array.length - 2])
+        array.pop();
+        array.pop();
+        display.innerText = display.innerText.slice(0, -(funcname.length + 1));
+        return;
+    }
+
+    if (str.length == 1) {
+        array.pop();
+        display.innerText = display.innerText.slice(0, -1);
+    }
+    else if (str.length > 1) {
+        array[array.length - 1] = array[array.length - 1].slice(0, -1);
+        display.innerText = display.innerText.slice(0, -1);
+    }
+});
 
 parenthesis1.addEventListener("click", (e) => {
     if (display.innerText == "0") {
