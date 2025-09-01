@@ -153,9 +153,20 @@ document.addEventListener("keydown", (e) => {
 })
 
 clearbtn.addEventListener("click", () => {
-    display.innerText = "0";
-    console.clear();
-    array = [];
+    
+    if (clearbtn.innerText === "C") {
+        // console.log(array[array.length - 1].length)
+        if (array[array.length - 1].length == 1) {
+            array.pop();
+            display.innerText=display.innerText.slice(0,-1)
+        }
+        else if (array[array.length - 1].length > 1) {
+            array[array.length - 1] = array[array.length - 1].slice(0, -1);
+            display.innerText=display.innerText.slice(0,-1)
+        }
+    }
+    // console.clear();
+    // array = [];
 })
 
 parenthesis1.addEventListener("click", (e) => {
@@ -243,12 +254,12 @@ sqrtbtn.addEventListener("click", (e) => {
 
 cuberoot.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerText = "3√(";
+        display.innerText = "∛(";
     }
     else {
-        display.innerText = display.innerText + "3√(";
+        display.innerText = display.innerText + "∛(";
     }
-    array.push("3√");
+    array.push("∛");
     array.push("(");
 })
 
@@ -463,6 +474,23 @@ const factorial = (fact) => {
     }
 }
 
+Array.from(document.getElementsByTagName("button")).forEach((elem) => {
+    elem.addEventListener("click", () => {
+        if (array.length > 0) {
+            clear();
+        }
+        else if (array.length == 0) {
+            display.innerText="0"
+            clearbtn.innerText = "AC"
+        }
+
+    })
+})
+
+const clear = () => {
+    clearbtn.innerText = "C";
+}
+
 
 const calculate = () => {
 
@@ -482,7 +510,7 @@ const calculate = () => {
         "sin": 4,
         "cos": 4,
         "√": 4,
-        "3√": 4,
+        "∛": 4,
         "!": 4,
         "ln": 4,
         "sinh": 4,
@@ -561,9 +589,10 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "3√", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "∛", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
+                // console.log(stack);
             }
             else if (getPrecedence(element) === getPrecedence(stack[stack.length - 1])) {
                 stack.push(element)
@@ -632,6 +661,7 @@ const calculate = () => {
         "cos": x => cleanTrig(Math.cos(torad(x))),
         "!": x => factorial(x),
         "ln": x => Math.log(x),
+        "log": x => Math.log10(x),
         "asin": x => todeg(Math.asin(x)),
         "acos": x => todeg(Math.acos(x)),
         "atan": x => todeg(Math.atan(x)),
