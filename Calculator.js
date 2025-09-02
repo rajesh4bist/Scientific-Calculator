@@ -34,82 +34,82 @@ let array = [];
 
 additionbtn.addEventListener("click", (e) => {
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
-        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        display.innerHTML = display.innerHTML.slice(0, -1) + e.target.innerHTML;
         array.pop();
-        array.push(e.target.innerText)
+        array.push(e.target.innerHTML)
         console.log(array);
         return;
     }
 
     if (display.innerText == "0") {
-        display.innerText = display.innerText + e.target.innerText;
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
         array.push(0)
     }
     else {
-        display.innerText = display.innerText + e.target.innerText;
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
     }
-    array.push(e.target.innerText);
+    array.push(e.target.innerHTML);
 })
 
 multiplybtn.addEventListener("click", (e) => {
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
-        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        display.innerHTML = display.innerHTML.slice(0, -1) + e.target.innerHTML;
         array.pop();
-        array.push(e.target.innerText)
+        array.push(e.target.innerHTML)
         console.log(array);
         return;
     }
 
     if (display.innerText == "0") {
-        display.innerText = display.innerText + e.target.innerText;
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
         array.push(0)
     }
     else {
-        display.innerText = display.innerText + e.target.innerText;
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
     }
-    array.push(e.target.innerText);
+    array.push(e.target.innerHTML);
 })
 
 divsionbtn.addEventListener("click", (e) => {
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
-        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        display.innerHTML = display.innerHTML.slice(0, -1) + e.target.innerHTML;
         array.pop();
-        array.push(e.target.innerText)
+        array.push(e.target.innerHTML)
         console.log(array);
         return;
     }
 
     if (display.innerText == "0") {
-        display.innerText = display.innerText + e.target.innerText;
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
         array.push(0)
     }
     else {
-        display.innerText = display.innerText + e.target.innerText;
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
     }
-    array.push(e.target.innerText);
+    array.push(e.target.innerHTML);
 })
 
 subtractionbtn.addEventListener("click", (e) => {
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
-        display.innerText = display.innerText.slice(0, -1) + e.target.innerText;
+        display.innerHTML = display.innerHTML.slice(0, -1) + e.target.innerHTML;
         array.pop();
-        array.push(e.target.innerText)
+        array.push(e.target.innerHTML)
         console.log(array);
         return;
     }
 
     if (display.innerText == "0") {
-        display.innerText = e.target.innerText;
-        array.push(e.target.innerText);
+        display.innerHTML = e.target.innerHTML;
+        array.push(e.target.innerHTML);
     }
     else {
-        display.innerText = display.innerText + e.target.innerText;
-        array.push(e.target.innerText);
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        array.push(e.target.innerHTML);
     }
 })
 
 percentbtn.addEventListener("click", (e) => {
-    display.innerText = display.innerText + e.target.innerText;
+    display.innerHTML = display.innerHTML + e.target.innerHTML;
     array.push("÷");
     array.push("100");
 })
@@ -120,13 +120,12 @@ pointbtn.addEventListener("click", (e) => {
     }
 
     if (display.innerText == "0") {
-        display.innerText = display.innerText + e.target.innerText;
-        array.push(`0${e.target.innerText}`)
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        array.push(`0${e.target.innerHTML}`)
     }
     else {
-
-        display.innerText = display.innerText + e.target.innerText;
-        array.push(e.target.innerText);
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        array.push(e.target.innerHTML);
         array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
         array.pop();
     }
@@ -141,11 +140,11 @@ document.addEventListener("keydown", (e) => {
         return;
     }
     if (display.innerText == "0") {
-        display.innerText = display.innerText + ".";
+        display.innerHTML = display.innerHTML + ".";
         array.push(`0.`)
     }
     else {
-        display.innerText = display.innerText + ".";
+        display.innerText = display.innerHTML + ".";
         array.push(".");
         array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
         array.pop();
@@ -161,13 +160,14 @@ clearbtn.addEventListener("mousedown", () => {
         while (array.length > 0) {
             array.pop();
         }
-
-        display.innerText = "0"
+        display.innerHTML = "0"
     }, 500);
 })
+
 clearbtn.addEventListener("mouseup", () => {
     clearTimeout(timer);
 })
+
 clearbtn.addEventListener("mouseleave", () => {
     clearTimeout(timer); 
 });
@@ -175,7 +175,7 @@ clearbtn.addEventListener("mouseleave", () => {
 clearbtn.addEventListener("click", () => {
 
     if (clearbtn.innerText == "AC") {
-        display.innerText = "0";
+        display.innerHTML = "0";
         console.clear();
         array = [];
         return;
@@ -189,38 +189,38 @@ clearbtn.addEventListener("click", () => {
         let funcname = (array[array.length - 2])
         array.pop();
         array.pop();
-        display.innerText = display.innerText.slice(0, -(funcname.length + 1));
+        display.innerHTML = display.innerHTML.slice(0, -(funcname.length + 1));
         return;
     }
 
     if (str.length == 1) {
         array.pop();
-        display.innerText = display.innerText.slice(0, -1);
+        display.innerHTML = display.innerHTML.slice(0, -1);
     }
     else if (str.length > 1) {
         array[array.length - 1] = array[array.length - 1].slice(0, -1);
-        display.innerText = display.innerText.slice(0, -1);
+        display.innerHTML = display.innerHTML.slice(0, -1);
     }
 });
 
 parenthesis1.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerText = e.target.innerText;
-        array.push(e.target.innerText);
+        display.innerHTML = "("
+        array.push("(");
     }
     else {
-        display.innerText = display.innerText + e.target.innerText;
-        array.push(e.target.innerText);
+        display.innerHTML = display.innerHTML + "(";
+        array.push("(");
     }
 })
 parenthesis2.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = e.target.innerText;
-        array.push(e.target.innerText);
+    if (display.innerHTML == "0") {
+        display.innerHTML = ")";
+        array.push(")");
     }
     else {
-        display.innerText = display.innerText + e.target.innerText;
-        array.push(e.target.innerText);
+        display.innerHTML = display.innerHTML + ")";
+        array.push(")");
     }
 })
 
@@ -237,28 +237,28 @@ cubebtn.addEventListener("click", () => {
 })
 
 topower.addEventListener("click", () => {
-    display.innerText = display.innerText + "^";
+    display.innerHTML = display.innerHTML + "^";
     array.push("^");
 })
 
 pibtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerText = e.target.innerText;
+    if (display.innerHTML == "0") {
+        display.innerHTML = e.target.innerHTML;
         array.push(Math.PI);
     }
     else {
-        display.innerText = display.innerText + e.target.innerText;
+        display.innerHTML = display.innerHTML + e.target.innerHTML;
         array.push(Math.PI);
     }
 })
 
 ebtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerHTML = e.target.innerText;
+        display.innerHTML = "<span style='font-family:Euphoria Script;'>e</span>";
         array.push(Math.E);
     }
     else {
-        display.innerHTML = display.innerHTML + e.target.innerText;
+        display.innerHTML = display.innerHTML + "<span style='font-family:Euphoria Script;'>e</span>";
         array.push(Math.E);
     }
 })
@@ -266,21 +266,21 @@ ebtn.addEventListener("click", (e) => {
 randbtn.addEventListener("click", (e) => {
     const randnum = Math.random().toFixed(10);
     if (display.innerText == "0") {
-        display.innerText = randnum;
+        display.innerHTML = randnum;
         array.push(randnum);
     }
     else {
-        display.innerText = display.innerText + randnum;
+        display.innerHTML = display.innerHTML + randnum;
         array.push(randnum);
     }
 })
 
 sqrtbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerText = "√(";
+        display.innerHTML = "√(";
     }
     else {
-        display.innerText = display.innerText + "√(";
+        display.innerHTML = display.innerHTML + "√(";
     }
     array.push("√");
     array.push("(");
@@ -288,26 +288,26 @@ sqrtbtn.addEventListener("click", (e) => {
 
 cuberoot.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerText = "∛(";
+        display.innerHTML = "∛(";
     }
     else {
-        display.innerText = display.innerText + "∛(";
+        display.innerHTML = display.innerHTML + "∛(";
     }
     array.push("∛");
     array.push("(");
 })
 
 factbtn.addEventListener("click", (e) => {
-    display.innerText = display.innerText + "!";
+    display.innerHTML = display.innerHTML + "!";
     array.push("!");
 })
 
 fractionbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerText = "1÷(";
+        display.innerHTML = "1÷(";
     }
     else {
-        display.innerText = display.innerText + "1÷(";
+        display.innerHTML = display.innerHTML + "1÷(";
     }
     array.push("1");
     array.push("÷");
@@ -316,10 +316,10 @@ fractionbtn.addEventListener("click", (e) => {
 
 lnbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerText = "ln(";
+        display.innerHTML = "ln(";
     }
     else {
-        display.innerText = display.innerText + "ln(";
+        display.innerHTML = display.innerHTML + "ln(";
     }
     array.push("ln");
     array.push("(");
@@ -327,10 +327,10 @@ lnbtn.addEventListener("click", (e) => {
 
 logbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerText = "log\u2081\u2080(";
+        display.innerHTML = "log<sub style='font-size:30px;'>10</sub>(";
     }
     else {
-        display.innerText = display.innerText + "log\u2081\u2080(";
+        display.innerHTML = display.innerHTML + "log<sub style='font-size:30px;'>10</sub>(";
     }
     array.push("log");
     array.push("(");
@@ -354,12 +354,12 @@ secondbtn.addEventListener("click", () => {
 
     }
     else {
-        sinbtn.innerText = "sin";
-        cosbtn.innerText = "cos";
-        tanbtn.innerText = "tan";
-        sinhbtn.innerText = "sinh";
-        coshbtn.innerText = "cosh";
-        tanhbtn.innerText = "tanh";
+        sinbtn.innerHTML = "sin";
+        cosbtn.innerHTML = "cos";
+        tanbtn.innerHTML = "tan";
+        sinhbtn.innerHTML = "sinh";
+        coshbtn.innerHTML = "cosh";
+        tanhbtn.innerHTML = "tanh";
 
     }
 })
@@ -391,7 +391,7 @@ trigButtons.forEach(({ btn, normal, inverse }) => {
 
 equalbtn.addEventListener("click", () => {
     let x = calculate();
-    display.innerText = x;
+    display.innerHTML = x;
     array = [];
     let str = String(x)
     array.push(str);
@@ -402,7 +402,7 @@ document.addEventListener("keydown", (e) => {
         e.preventDefault();
         e.stopPropagation();
         let x = calculate();
-        display.innerText = x;
+        display.innerHTML = x;
         array = [];
         array.push(x);
     }
@@ -413,18 +413,18 @@ document.addEventListener("keydown", (e) => {
 Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys) => {
     NumericKeys.addEventListener("click", (e) => {
         if (display.innerText == "0") {
-            display.innerText = e.target.innerText;
+            display.innerHTML = e.target.innerHTML;
         }
         else {
-            display.innerText = display.innerText + e.target.innerText;
+            display.innerHTML = display.innerHTML + e.target.innerHTML;
         }
 
         if (array.length === 0 || /[+\-×÷()^]/.test(array[array.length - 1])) {
-            console.log(e.target.innerText)
-            array.push(e.target.innerText)
+            console.log(e.target.innerHTML)
+            array.push(e.target.innerHTML)
         }
         else {
-            array.push(e.target.innerText);
+            array.push(e.target.innerHTML);
             array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
             array.pop();
         }
@@ -441,10 +441,10 @@ document.addEventListener("keydown", (e) => {
     }
 
     if (display.innerText == "0") {
-        display.innerText = key;
+        display.innerHTML = key;
     }
     else {
-        display.innerText = display.innerText + key;
+        display.innerHTML = display.innerHTML + key;
     }
 
     if (array.length === 0 || /[+\-×÷()^]/.test(array[array.length - 1])) {
@@ -475,19 +475,18 @@ document.addEventListener("keydown", (e) => {
     }
 
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
-        display.innerText = display.innerText.slice(0, -1) + key;
+        display.innerHTML = display.innerHTML.slice(0, -1) + key;
         array.pop();
         array.push(key)
         console.log(array);
         return;
     }
 
-
     if (display.innerText == "0") {
-        display.innerText = key;
+        display.innerHTML = key;
     }
     else {
-        display.innerText = display.innerText + key;
+        display.innerHTML = display.innerHTML + key;
     }
     array.push(key)
 })
@@ -512,22 +511,22 @@ const factorial = (fact) => {
 Array.from(document.getElementsByTagName("button")).forEach((elem) => {
     elem.addEventListener("click", () => {
         if (elem == equalbtn) {
-            clearbtn.innerText = "AC";
+            clearbtn.innerHTML = "AC";
             return;
         }
         else if (array.length > 0) {
             clear();
         }
         else if (array.length == 0) {
-            display.innerText = "0";
-            clearbtn.innerText = "AC";
+            display.innerHTML = "0";
+            clearbtn.innerHTML = "AC";
         }
 
     })
 })
 
 const clear = () => {
-    clearbtn.innerText = "C";
+    clearbtn.innerHTML = "C";
 }
 
 
