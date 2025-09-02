@@ -490,6 +490,11 @@ document.addEventListener("keydown", (e) => {
         array.push("0")
         array.push(key)
     }
+    else if (display.innerText == "0" && ["-", "(", ")"].includes(key)) {
+        display.innerHTML = key;
+        // array.push("0");
+        array.push(key);
+    }
     else {
         display.innerHTML = display.innerHTML + key;
     }
