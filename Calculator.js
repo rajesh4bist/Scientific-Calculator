@@ -169,7 +169,7 @@ clearbtn.addEventListener("mouseup", () => {
 })
 
 clearbtn.addEventListener("mouseleave", () => {
-    clearTimeout(timer); 
+    clearTimeout(timer);
 });
 
 clearbtn.addEventListener("click", () => {
@@ -475,16 +475,20 @@ document.addEventListener("keydown", (e) => {
         key = "÷";
     }
 
-    if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
-        display.innerHTML = display.innerHTML.slice(0, -1) + key;
-        array.pop();
-        array.push(key)
-        console.log(array);
-        return;
+    if (["+", "-", "×", "÷"].includes(key)) {
+        if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
+            display.innerHTML = display.innerHTML.slice(0, -1) + key;
+            array.pop();
+            array.push(key)
+            console.log(array);
+            return;
+        }
     }
 
-    if (display.innerText == "0") {
-        display.innerHTML = key;
+    if (display.innerText == "0" && ["+", "×", "÷"].includes(key)) {
+        display.innerHTML += key;
+        array.push("0")
+        array.push(key)
     }
     else {
         display.innerHTML = display.innerHTML + key;
