@@ -404,7 +404,8 @@ document.addEventListener("keydown", (e) => {
         let x = calculate();
         display.innerHTML = x;
         array = [];
-        array.push(x);
+        let str = String(x)
+        array.push(str);
     }
 })
 
