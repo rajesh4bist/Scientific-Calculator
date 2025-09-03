@@ -41,7 +41,7 @@ button {
 }
 
 #pi-button {
-  font-size: 18px;
+  font-size: 20px;
   font-family: 'lib';
 }
 
@@ -174,12 +174,3 @@ button {
   justify-content: center;
   align-items: center;
 }
-
-#cube-root-button {
-  font-family: 'Lib Math';
-}
-
-/* .sup-small {
-  font-size: 6px;      
-  vertical-align: super; 
-} */

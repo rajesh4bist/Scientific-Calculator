@@ -243,11 +243,11 @@ topower.addEventListener("click", () => {
 
 pibtn.addEventListener("click", (e) => {
     if (display.innerHTML == "0") {
-        display.innerHTML = e.target.innerHTML;
+        display.innerHTML = "<span style='font-family:lib;'>π</span>";
         array.push(Math.PI);
     }
     else {
-        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        display.innerHTML = display.innerHTML + "<span style='font-family:lib;'>π</span>";
         array.push(Math.PI);
     }
 })
@@ -323,7 +323,7 @@ lnbtn.addEventListener("click", (e) => {
     }
     array.push("ln");
     array.push("(");
-})
+});
 
 logbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
@@ -541,7 +541,7 @@ document.addEventListener("keydown", (e) => {
     else {
         const btn = Array.from(document.getElementsByTagName("button")).find(b => b.innerText == e.key);
         if (e.key == "Enter") {
-            equalbtn.click();
+            clearbtn.innerHTML = "AC";
             return;
         }
         if (btn) {
@@ -702,6 +702,16 @@ const calculate = () => {
         return deg;
     }
 
+    const tan = (val) => {
+        let value = ((val % 360) + 360) % 360;
+
+        if (value % 180 == 90) {
+            return Infinity;
+        }
+
+        return cleanTrig(Math.tan(torad(value)));
+    }
+
     function cleanTrig(val) {
         const epsilon = 1e-10;
 
@@ -725,7 +735,7 @@ const calculate = () => {
     const unaryop = {
         "√": (x) => Math.sqrt(x),
         "∛": (x) => Math.cbrt(x),
-        "tan": (x) => (x == 90) ? Infinity : cleanTrig(Math.tan(torad(x))),
+        "tan": (x) => tan(x),
         "sin": (x) => cleanTrig(Math.sin(torad(x))),
         "cos": x => cleanTrig(Math.cos(torad(x))),
         "!": x => factorial(x),
