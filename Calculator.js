@@ -492,13 +492,12 @@ document.addEventListener("keydown", (e) => {
     }
     else if (display.innerText == "0" && ["-", "(", ")"].includes(key)) {
         display.innerHTML = key;
-        // array.push("0");
         array.push(key);
     }
     else {
         display.innerHTML = display.innerHTML + key;
+        array.push(key)
     }
-    array.push(key)
 })
 
 
@@ -532,8 +531,30 @@ Array.from(document.getElementsByTagName("button")).forEach((elem) => {
             clearbtn.innerHTML = "AC";
         }
 
-    })
-})
+    });
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace") {
+        clearbtn.click();
+    }
+    else {
+        const btn = Array.from(document.getElementsByTagName("button")).find(b => b.innerText == e.key);
+        if (e.key == "Enter") {
+            equalbtn.click();
+            return;
+        }
+        if (btn) {
+            if (array.length > 0) {
+                clear();
+            }
+            else if (array.length == 0) {
+                display.innerHTML = "0";
+                clearbtn.innerHTML = "AC";
+            }
+        }
+    }
+});
 
 const clear = () => {
     clearbtn.innerHTML = "C";
