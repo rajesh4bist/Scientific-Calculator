@@ -174,3 +174,10 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.superscript {
+    font-size: 0.8em;
+    display: inline-block;
+    transform: translateY(-0.8em);  
+    /* line-height: 0;       */
+}
