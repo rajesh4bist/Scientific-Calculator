@@ -500,6 +500,20 @@ document.addEventListener("keydown", (e) => {
     }
 })
 
+const powerfunc = () => {
+    //Needs fixing
+    let superscript = false;
+    let SupArray = [];
+    Array.from(document.getElementsByTagName("button")).forEach((elem) => {
+        elem.addEventListener("click", (e) => {
+            let val = e.target.innerHTML;
+            if (superscript) {
+                display.innerHTML += `<sup class="superscript">${val}</sup>`;
+                SupArray.push(val);
+            }
+        });
+    });
+}
 
 const factorial = (fact) => {
     let facto = 1;
