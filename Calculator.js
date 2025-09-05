@@ -29,6 +29,7 @@ const secondbtn = document.getElementById("second-button");
 const logbtn = document.getElementById("log-button");
 const percentbtn = document.getElementById("percentage-button");
 const pointbtn = document.getElementById("point-button");
+const radbtn = document.getElementById("Radian-button");
 
 let array = [];
 
@@ -312,7 +313,20 @@ fractionbtn.addEventListener("click", (e) => {
     array.push("1");
     array.push("÷");
     array.push("(");
-})
+});
+
+let radtoggle = false;
+
+radbtn.addEventListener("click", () => {
+    radtoggle = !radtoggle
+    console.log(radtoggle)
+    if (radtoggle) {
+        radbtn.innerHTML = "Deg";
+    }
+    else {
+        radbtn.innerHTML = "Rad";
+    }
+});
 
 let istoggled = false;
 
@@ -732,11 +746,15 @@ const calculate = () => {
     const tan = (val) => {
         let value = ((val % 360) + 360) % 360;
 
-        if (value % 180 == 90) {
+        if (value % 180 == 90 && radtoggle == false) {
             return Infinity;
         }
-
-        return cleanTrig(Math.tan(torad(value)));
+        if (radtoggle) {
+            return cleanTrig(Math.tan(value));
+        }
+        else {
+            return cleanTrig(Math.tan(torad(value)));
+        }
     }
 
     function cleanTrig(val) {
@@ -759,7 +777,7 @@ const calculate = () => {
         "^": (a, b) => Math.pow(a, b),
     }
 
-    const unaryop = {
+    const unaryopdeg = {
         "√": (x) => Math.sqrt(x),
         "∛": (x) => Math.cbrt(x),
         "tan": (x) => tan(x),
@@ -780,6 +798,27 @@ const calculate = () => {
         "atanh": x => Math.atanh(x)
     }
 
+    const unaryoprad = {
+        "√": (x) => Math.sqrt(x),
+        "∛": (x) => Math.cbrt(x),
+        "tan": (x) => tan(x),
+        "sin": (x) => cleanTrig(Math.sin(x)),
+        "cos": x => cleanTrig(Math.cos(x)),
+        "!": x => factorial(x),
+        "ln": x => Math.log(x),
+        "log": x => Math.log10(x),
+        "log2": x => Math.log2(x),
+        "asin": x => todeg(Math.asin(x)),
+        "acos": x => todeg(Math.acos(x)),
+        "atan": x => todeg(Math.atan(x)),
+        "sinh": x => cleanTrig(Math.sinh(x)),
+        "cosh": x => cleanTrig(Math.cosh(x)),
+        "tanh": x => cleanTrig(Math.tanh(x)),
+        "asinh": x => Math.asinh(x),
+        "acosh": x => Math.acosh(x),
+        "atanh": x => Math.atanh(x)
+    }
+
     if (output.length > 1) {
         for (let i = 0; i < output.length; i++) {
 
@@ -791,14 +830,22 @@ const calculate = () => {
                 output.splice(i - 2, 3, res);
                 i = i - 2;
             }
-            else if (unaryop[output[i]] && isNumeric(a)) {
-                res = unaryop[output[i]](a);
-                output.splice(i - 1, 2, res);
-                i = i - 1;
-            }
 
+            else if (unaryopdeg[output[i]] && isNumeric(a)) {
+                if (radtoggle) {
+                    res = unaryoprad[output[i]](a);
+                    output.splice(i - 1, 2, res);
+                    i = i - 1;
+                }
+                else {
+                    res = unaryopdeg[output[i]](a);
+                    output.splice(i - 1, 2, res);
+                    i = i - 1;
+                }
+            }
         }
     }
+
 
     else {
         res = output[output.length - 1]
