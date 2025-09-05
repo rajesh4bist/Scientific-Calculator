@@ -314,44 +314,68 @@ fractionbtn.addEventListener("click", (e) => {
     array.push("(");
 })
 
+let istoggled = false;
+
 lnbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerHTML = "ln(";
+    if (istoggled) {
+        if (display.innerText == "0") {
+            display.innerHTML = "log(";
+        }
+        else {
+            display.innerHTML = display.innerHTML + "log(";
+        }
+        array.push("log");
+        array.push("(");
     }
     else {
-        display.innerHTML = display.innerHTML + "ln(";
+        if (display.innerText == "0") {
+            display.innerHTML = "ln(";
+        }
+        else {
+            display.innerHTML = display.innerHTML + "ln(";
+        }
+        array.push("ln");
+        array.push("(");
     }
-    array.push("ln");
-    array.push("(");
 });
 
 logbtn.addEventListener("click", (e) => {
-    if (display.innerText == "0") {
-        display.innerHTML = "log<sub style='font-size:30px;'>10</sub>(";
+    if (istoggled) {
+        if (display.innerText == "0") {
+            display.innerHTML = "log<sub style='font-size:30px;'>2</sub>(";
+        }
+        else {
+            display.innerHTML = display.innerHTML + "log<sub style='font-size:30px;'>2</sub>(";
+        }
+        array.push("log2");
+        array.push("(");
     }
     else {
-        display.innerHTML = display.innerHTML + "log<sub style='font-size:30px;'>10</sub>(";
+        if (display.innerText == "0") {
+            display.innerHTML = "log<sub style='font-size:30px;'>10</sub>(";
+        }
+        else {
+            display.innerHTML = display.innerHTML + "log<sub style='font-size:30px;'>10</sub>(";
+        }
+        array.push("log");
+        array.push("(");
     }
-    array.push("log");
-    array.push("(");
-})
+});
 
-
-
-let istoggled = false;
 
 secondbtn.addEventListener("click", () => {
     istoggled = !istoggled;
     console.log(istoggled)
 
     if (istoggled) {
-        sinbtn.innerHTML = "sin<sup>-1<sup>"
-        cosbtn.innerHTML = "cos<sup>-1<sup>"
-        tanbtn.innerHTML = "tan<sup>-1<sup>"
-        sinhbtn.innerHTML = "sinh<sup>-1<sup>"
-        coshbtn.innerHTML = "cosh<sup>-1<sup>"
-        tanhbtn.innerHTML = "tanh<sup>-1<sup>"
-
+        sinbtn.innerHTML = "sin<sup>-1<sup>";
+        cosbtn.innerHTML = "cos<sup>-1<sup>";
+        tanbtn.innerHTML = "tan<sup>-1<sup>";
+        sinhbtn.innerHTML = "sinh<sup>-1<sup>";
+        coshbtn.innerHTML = "cosh<sup>-1<sup>";
+        tanhbtn.innerHTML = "tanh<sup>-1<sup>";
+        lnbtn.innerHTML = "log<sub>y</sub>";
+        logbtn.innerHTML = "log<sub>2</sub>"
     }
     else {
         sinbtn.innerHTML = "sin";
@@ -360,7 +384,8 @@ secondbtn.addEventListener("click", () => {
         sinhbtn.innerHTML = "sinh";
         coshbtn.innerHTML = "cosh";
         tanhbtn.innerHTML = "tanh";
-
+        lnbtn.innerHTML = "ln";
+        logbtn.innerHTML = "log<sub>10</sub>"
     }
 })
 
@@ -387,6 +412,7 @@ trigButtons.forEach(({ btn, normal, inverse }) => {
         array.push("(");
     });
 });
+
 
 
 equalbtn.addEventListener("click", () => {
@@ -500,20 +526,6 @@ document.addEventListener("keydown", (e) => {
     }
 })
 
-const powerfunc = () => {
-    //Needs fixing
-    let superscript = false;
-    let SupArray = [];
-    Array.from(document.getElementsByTagName("button")).forEach((elem) => {
-        elem.addEventListener("click", (e) => {
-            let val = e.target.innerHTML;
-            if (superscript) {
-                display.innerHTML += `<sup class="superscript">${val}</sup>`;
-                SupArray.push(val);
-            }
-        });
-    });
-}
 
 const factorial = (fact) => {
     let facto = 1;
@@ -608,7 +620,8 @@ const calculate = () => {
         "asinh": 4,
         "acosh": 4,
         "atanh": 4,
-        "log": 4
+        "log": 4,
+        "log2": 4,
     }
 
     function getPrecedence(operator) {
@@ -672,7 +685,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "∛", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "∛", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan", "log2"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
                 // console.log(stack);
@@ -755,6 +768,7 @@ const calculate = () => {
         "!": x => factorial(x),
         "ln": x => Math.log(x),
         "log": x => Math.log10(x),
+        "log2": x => Math.log2(x),
         "asin": x => todeg(Math.asin(x)),
         "acos": x => todeg(Math.acos(x)),
         "atan": x => todeg(Math.atan(x)),
