@@ -264,17 +264,29 @@ ebtn.addEventListener("click", (e) => {
     }
 })
 
+let randarr = [];
 randbtn.addEventListener("click", (e) => {
     const randnum = Math.random().toFixed(10);
+
     if (display.innerText == "0") {
         display.innerHTML = randnum;
+        array.push(randnum);
+        randarr.push(randnum);
+        console.log(randarr)
+    }
+    else if (randarr.length && array[array.length - 1] === randarr[randarr.length - 1]) {
+        display.innerHTML = display.innerHTML.slice(0, -(randarr[0].length)) + randnum;
+        array.pop();
+        randarr.pop();
+        randarr.push(randnum);
         array.push(randnum);
     }
     else {
         display.innerHTML = display.innerHTML + randnum;
         array.push(randnum);
+        randarr.push(randnum);
     }
-})
+});
 
 sqrtbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
@@ -433,7 +445,8 @@ equalbtn.addEventListener("click", () => {
     let x = calculate();
     display.innerHTML = x;
     array = [];
-    let str = String(x)
+    randarr = [];
+    let str = String(x);
     array.push(str);
 })
 
@@ -444,6 +457,7 @@ document.addEventListener("keydown", (e) => {
         let x = calculate();
         display.innerHTML = x;
         array = [];
+        randarr = [];
         let str = String(x)
         array.push(str);
     }
