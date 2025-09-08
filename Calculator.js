@@ -165,6 +165,8 @@ clearbtn.addEventListener("mousedown", () => {
             array.pop();
         }
         display.innerHTML = "0"
+        parencount = 0;
+        powerPressed = false;
     }, 500);
 })
 
@@ -183,6 +185,8 @@ clearbtn.addEventListener("click", () => {
         console.clear();
         array = [];
         randarr = [];
+        parencount = 0;
+        powerPressed = false;
         return;
     }
 
@@ -252,10 +256,10 @@ topower.addEventListener("click", () => {
 });
 
 etopowertbn.addEventListener("click", () => {
-    if (display.innerText=="0") {
+    if (display.innerText == "0") {
         display.innerHTML = "<span style='font-family:Euphoria Script;'>e</span>"
     }
-    else{
+    else {
         display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;'>e</span>");
     }
     powerPressed = true;
@@ -265,10 +269,10 @@ etopowertbn.addEventListener("click", () => {
 });
 
 tenpowerbtn.addEventListener("click", () => {
-    if (display.innerText=="0") {
+    if (display.innerText == "0") {
         display.innerHTML = "10"
     }
-    else{
+    else {
         display.innerHTML = formatDisplay("10");
     }
     powerPressed = true;
@@ -453,7 +457,9 @@ secondbtn.addEventListener("click", () => {
         coshbtn.innerHTML = "cosh<sup>-1<sup>";
         tanhbtn.innerHTML = "tanh<sup>-1<sup>";
         lnbtn.innerHTML = "log<sub>y</sub>";
-        logbtn.innerHTML = "log<sub>2</sub>"
+        logbtn.innerHTML = "log<sub>2</sub>";
+        etopowertbn.innerHTML = "y<sup>x</sup>";
+        tenpowerbtn.innerHTML = "10<sup>x</sup>"
     }
     else {
         sinbtn.innerHTML = "sin";
@@ -464,6 +470,8 @@ secondbtn.addEventListener("click", () => {
         tanhbtn.innerHTML = "tanh";
         lnbtn.innerHTML = "ln";
         logbtn.innerHTML = "log<sub>10</sub>"
+        etopowertbn.innerHTML = "<span style='font-family:Euphoria Script; font-size: 1.8em;'>e</span><sup>x</sup>"
+        tenpowerbtn.innerHTML = "2<sup>x</sup>"
     }
 });
 
@@ -499,6 +507,7 @@ equalbtn.addEventListener("click", () => {
     randarr = [];
     let str = String(x)
     array.push(str);
+    parencount = 0;
 });
 
 document.addEventListener("keydown", (e) => {
