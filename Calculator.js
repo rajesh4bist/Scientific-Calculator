@@ -31,7 +31,8 @@ const percentbtn = document.getElementById("percentage-button");
 const pointbtn = document.getElementById("point-button");
 const radbtn = document.getElementById("Radian-button");
 const EEbtn = document.getElementById("EE-button");
-
+const etopowertbn = document.getElementById("e-topower-button");
+const tenpowerbtn = document.getElementById("ten-topower-button");
 
 let array = [];
 
@@ -245,9 +246,34 @@ cubebtn.addEventListener("click", () => {
 
 let powerPressed = false;
 topower.addEventListener("click", () => {
-    console.log(display);
     powerPressed = true;
     parencount = 0;
+    array.push("^");
+});
+
+etopowertbn.addEventListener("click", () => {
+    if (display.innerText=="0") {
+        display.innerHTML = "<span style='font-family:Euphoria Script;'>e</span>"
+    }
+    else{
+        display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;'>e</span>");
+    }
+    powerPressed = true;
+    parencount = 0;
+    array.push(Math.E)
+    array.push("^");
+});
+
+tenpowerbtn.addEventListener("click", () => {
+    if (display.innerText=="0") {
+        display.innerHTML = "10"
+    }
+    else{
+        display.innerHTML = formatDisplay("10");
+    }
+    powerPressed = true;
+    parencount = 0;
+    array.push("10")
     array.push("^");
 });
 
