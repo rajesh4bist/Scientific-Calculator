@@ -30,6 +30,8 @@ const logbtn = document.getElementById("log-button");
 const percentbtn = document.getElementById("percentage-button");
 const pointbtn = document.getElementById("point-button");
 const radbtn = document.getElementById("Radian-button");
+const EEbtn = document.getElementById("EE-button");
+
 
 let array = [];
 
@@ -47,10 +49,10 @@ additionbtn.addEventListener("click", (e) => {
         array.push(0)
     }
     else {
-        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        supoperators(e);
     }
     array.push(e.target.innerHTML);
-})
+});
 
 multiplybtn.addEventListener("click", (e) => {
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
@@ -66,7 +68,7 @@ multiplybtn.addEventListener("click", (e) => {
         array.push(0)
     }
     else {
-        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        supoperators(e);
     }
     array.push(e.target.innerHTML);
 })
@@ -85,7 +87,7 @@ divsionbtn.addEventListener("click", (e) => {
         array.push(0)
     }
     else {
-        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        supoperators(e);
     }
     array.push(e.target.innerHTML);
 })
@@ -104,7 +106,7 @@ subtractionbtn.addEventListener("click", (e) => {
         array.push(e.target.innerHTML);
     }
     else {
-        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        supoperators(e);
         array.push(e.target.innerHTML);
     }
 })
@@ -125,7 +127,7 @@ pointbtn.addEventListener("click", (e) => {
         array.push(`0${e.target.innerHTML}`)
     }
     else {
-        display.innerHTML = display.innerHTML + e.target.innerHTML;
+        display.innerHTML = formatDisplay(".");
         array.push(e.target.innerHTML);
         array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
         array.pop();
@@ -145,7 +147,7 @@ document.addEventListener("keydown", (e) => {
         array.push(`0.`)
     }
     else {
-        display.innerText = display.innerHTML + ".";
+        display.innerHTML = formatDisplay(".");
         array.push(".");
         array[array.length - 2] = array[array.length - 2] + array[array.length - 1];
         array.pop();
@@ -179,6 +181,7 @@ clearbtn.addEventListener("click", () => {
         display.innerHTML = "0";
         console.clear();
         array = [];
+        randarr = [];
         return;
     }
 
@@ -204,15 +207,17 @@ clearbtn.addEventListener("click", () => {
     }
 });
 
+let parencount;
 parenthesis1.addEventListener("click", (e) => {
     if (display.innerText == "0") {
         display.innerHTML = "("
         array.push("(");
     }
     else {
-        display.innerHTML = display.innerHTML + "(";
+        display.innerHTML = formatDisplay("(");
         array.push("(");
     }
+    parencount++;
 })
 parenthesis2.addEventListener("click", (e) => {
     if (display.innerHTML == "0") {
@@ -220,9 +225,10 @@ parenthesis2.addEventListener("click", (e) => {
         array.push(")");
     }
     else {
-        display.innerHTML = display.innerHTML + ")";
+        display.innerHTML = formatDisplay(")");
         array.push(")");
     }
+    parencount--;
 })
 
 sqrbtn.addEventListener("click", () => {
@@ -237,10 +243,13 @@ cubebtn.addEventListener("click", () => {
     array.push("3");
 })
 
+let powerPressed = false;
 topower.addEventListener("click", () => {
-    display.innerHTML = display.innerHTML + "^";
+    console.log(display);
+    powerPressed = true;
+    parencount = 0;
     array.push("^");
-})
+});
 
 pibtn.addEventListener("click", (e) => {
     if (display.innerHTML == "0") {
@@ -248,7 +257,7 @@ pibtn.addEventListener("click", (e) => {
         array.push(Math.PI);
     }
     else {
-        display.innerHTML = display.innerHTML + "<span style='font-family:lib;'>π</span>";
+        display.innerHTML = formatDisplay("<span style='font-family:lib;'>π</span>");
         array.push(Math.PI);
     }
 })
@@ -259,10 +268,22 @@ ebtn.addEventListener("click", (e) => {
         array.push(Math.E);
     }
     else {
-        display.innerHTML = display.innerHTML + "<span style='font-family:Euphoria Script;'>e</span>";
+        display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;'>e</span>");
         array.push(Math.E);
     }
-})
+});
+
+EEbtn.addEventListener("click", (e) => {
+    if (display.innerText == "0") {
+        return;
+    }
+    else {
+        display.innerHTML += "e";
+        array.push("×");
+        array.push("10");
+        array.push("^");
+    }
+});
 
 let randarr = [];
 randbtn.addEventListener("click", (e) => {
@@ -293,8 +314,9 @@ sqrtbtn.addEventListener("click", (e) => {
         display.innerHTML = "√(";
     }
     else {
-        display.innerHTML = display.innerHTML + "√(";
+        display.innerHTML = formatDisplay("√(");
     }
+    parencount++;
     array.push("√");
     array.push("(");
 })
@@ -304,24 +326,26 @@ cuberoot.addEventListener("click", (e) => {
         display.innerHTML = "∛(";
     }
     else {
-        display.innerHTML = display.innerHTML + "∛(";
+        display.innerHTML = formatDisplay("∛(");
     }
+    parencount++;
     array.push("∛");
     array.push("(");
-})
+});
 
 factbtn.addEventListener("click", (e) => {
-    display.innerHTML = display.innerHTML + "!";
+    display.innerHTML = formatDisplay("!");
     array.push("!");
-})
+});
 
 fractionbtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
         display.innerHTML = "1÷(";
     }
     else {
-        display.innerHTML = display.innerHTML + "1÷(";
+        display.innerHTML = formatDisplay("1÷(");
     }
+    parencount++;
     array.push("1");
     array.push("÷");
     array.push("(");
@@ -343,12 +367,13 @@ radbtn.addEventListener("click", () => {
 let istoggled = false;
 
 lnbtn.addEventListener("click", (e) => {
+    parencount++;
     if (istoggled) {
         if (display.innerText == "0") {
             display.innerHTML = "log(";
         }
         else {
-            display.innerHTML = display.innerHTML + "log(";
+            display.innerHTML = formatDisplay("log(");
         }
         array.push("log");
         array.push("(");
@@ -358,7 +383,7 @@ lnbtn.addEventListener("click", (e) => {
             display.innerHTML = "ln(";
         }
         else {
-            display.innerHTML = display.innerHTML + "ln(";
+            display.innerHTML = formatDisplay("ln(");
         }
         array.push("ln");
         array.push("(");
@@ -366,12 +391,13 @@ lnbtn.addEventListener("click", (e) => {
 });
 
 logbtn.addEventListener("click", (e) => {
+    parencount++;
     if (istoggled) {
         if (display.innerText == "0") {
             display.innerHTML = "log<sub style='font-size:30px;'>2</sub>(";
         }
         else {
-            display.innerHTML = display.innerHTML + "log<sub style='font-size:30px;'>2</sub>(";
+            display.innerHTML = formatDisplay("log<sub style='font-size:30px;'>2</sub>(");
         }
         array.push("log2");
         array.push("(");
@@ -381,7 +407,7 @@ logbtn.addEventListener("click", (e) => {
             display.innerHTML = "log<sub style='font-size:30px;'>10</sub>(";
         }
         else {
-            display.innerHTML = display.innerHTML + "log<sub style='font-size:30px;'>10</sub>(";
+            display.innerHTML = formatDisplay("log<sub style='font-size:30px;'>10</sub>(");
         }
         array.push("log");
         array.push("(");
@@ -413,7 +439,7 @@ secondbtn.addEventListener("click", () => {
         lnbtn.innerHTML = "ln";
         logbtn.innerHTML = "log<sub>10</sub>"
     }
-})
+});
 
 // Trigonometric functions
 const trigButtons = [
@@ -427,28 +453,27 @@ const trigButtons = [
 
 trigButtons.forEach(({ btn, normal, inverse }) => {
     btn.addEventListener("click", () => {
+        parencount++;
         const func = !istoggled ? normal : inverse;
         if (display.innerText === "0") {
             display.innerHTML = `${func}(`;
         }
         else {
-            display.innerHTML += `${func}(`;
+            display.innerHTML = formatDisplay(`${func}(`);
         }
         array.push(func);
         array.push("(");
     });
 });
 
-
-
 equalbtn.addEventListener("click", () => {
     let x = calculate();
     display.innerHTML = x;
     array = [];
     randarr = [];
-    let str = String(x);
+    let str = String(x)
     array.push(str);
-})
+});
 
 document.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -461,7 +486,7 @@ document.addEventListener("keydown", (e) => {
         let str = String(x)
         array.push(str);
     }
-})
+});
 
 
 //Event Listeners for numbers
@@ -471,7 +496,7 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
             display.innerHTML = e.target.innerHTML;
         }
         else {
-            display.innerHTML = display.innerHTML + e.target.innerHTML;
+            display.innerHTML = formatDisplay(e.target.innerHTML);
         }
 
         if (array.length === 0 || /[+\-×÷()^]/.test(array[array.length - 1])) {
@@ -484,7 +509,7 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
             array.pop();
         }
         console.log(array)
-    })
+    });
 })
 
 
@@ -499,7 +524,7 @@ document.addEventListener("keydown", (e) => {
         display.innerHTML = key;
     }
     else {
-        display.innerHTML = display.innerHTML + key;
+        display.innerHTML = formatDisplay(key);
     }
 
     if (array.length === 0 || /[+\-×÷()^]/.test(array[array.length - 1])) {
@@ -549,10 +574,59 @@ document.addEventListener("keydown", (e) => {
         array.push(key);
     }
     else {
-        display.innerHTML = display.innerHTML + key;
-        array.push(key)
+        if (["+", "-", "×", "÷"].includes(key)) {
+            display.innerHTML = supoperatorkeys(key);
+        }
+        else if (key == "(") {
+            parencount++;
+            display.innerHTML = formatDisplay(key);
+        }
+        else if (key == ")") {
+            parencount--;
+            display.innerHTML = formatDisplay(key);
+        }
+        else {
+            display.innerHTML = formatDisplay(key);
+        }
+        array.push(key);
     }
 })
+
+const supoperators = (e) => {
+
+    if (parencount > 0 && powerPressed) {
+        display.innerHTML = formatDisplay(e.target.innerHTML);
+    }
+    else if (parencount == 0 && powerPressed) {
+        powerPressed = false;
+        display.innerHTML = formatDisplay(e.target.innerHTML);
+    }
+    else {
+        display.innerHTML = formatDisplay(e.target.innerHTML);
+    }
+}
+
+const supoperatorkeys = (a) => {
+    if (parencount > 0 && powerPressed) {
+        return formatDisplay(a);
+    }
+    else if (parencount == 0 && powerPressed) {
+        powerPressed = false;
+        return formatDisplay(a);
+    }
+    else {
+        return formatDisplay(a);
+    }
+}
+
+const formatDisplay = (string) => {
+    if (powerPressed) {
+        return display.innerHTML + `<sup class ="superscript">${string}</sup>`
+    }
+    else {
+        return display.innerHTML + string;
+    }
+}
 
 
 const factorial = (fact) => {
@@ -584,7 +658,6 @@ Array.from(document.getElementsByTagName("button")).forEach((elem) => {
             display.innerHTML = "0";
             clearbtn.innerHTML = "AC";
         }
-
     });
 });
 
@@ -825,9 +898,9 @@ const calculate = () => {
         "asin": x => todeg(Math.asin(x)),
         "acos": x => todeg(Math.acos(x)),
         "atan": x => todeg(Math.atan(x)),
-        "sinh": x => cleanTrig(Math.sinh(x)),
-        "cosh": x => cleanTrig(Math.cosh(x)),
-        "tanh": x => cleanTrig(Math.tanh(x)),
+        "sinh": x => cleanTrig(Math.sinh(torad(x))),
+        "cosh": x => cleanTrig(Math.cosh(torad(x))),
+        "tanh": x => cleanTrig(Math.tanh(torad(x))),
         "asinh": x => Math.asinh(x),
         "acosh": x => Math.acosh(x),
         "atanh": x => Math.atanh(x)
@@ -859,7 +932,6 @@ const calculate = () => {
             }
         }
     }
-
 
     else {
         res = output[output.length - 1]
