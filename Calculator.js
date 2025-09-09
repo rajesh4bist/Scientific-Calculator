@@ -255,31 +255,6 @@ topower.addEventListener("click", () => {
     array.push("^");
 });
 
-etopowertbn.addEventListener("click", () => {
-    if (display.innerText == "0") {
-        display.innerHTML = "<span style='font-family:Euphoria Script;'>e</span>"
-    }
-    else {
-        display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;'>e</span>");
-    }
-    powerPressed = true;
-    parencount = 0;
-    array.push(Math.E)
-    array.push("^");
-});
-
-tenpowerbtn.addEventListener("click", () => {
-    if (display.innerText == "0") {
-        display.innerHTML = "10"
-    }
-    else {
-        display.innerHTML = formatDisplay("10");
-    }
-    powerPressed = true;
-    parencount = 0;
-    array.push("10")
-    array.push("^");
-});
 
 pibtn.addEventListener("click", (e) => {
     if (display.innerHTML == "0") {
@@ -444,6 +419,60 @@ logbtn.addEventListener("click", (e) => {
     }
 });
 
+etopowertbn.addEventListener("click", () => {
+    if (istoggled) {
+        if (display.innerText == "0") {
+            display.innerHTML = "<span style='font-family:Euphoria Script;'>e</span>"
+        }
+        else {
+            display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;'>e</span>");
+        }
+        powerPressed = true;
+        parencount = 0;
+        array.push(Math.E)
+        array.push("^");
+    }
+    else {
+        if (display.innerText == "0") {
+            display.innerHTML = "<span style='font-family:Euphoria Script;'>e</span>"
+        }
+        else {
+            display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;'>e</span>");
+        }
+        powerPressed = true;
+        parencount = 0;
+        array.push(Math.E)
+        array.push("^");
+    }
+
+});
+
+tenpowerbtn.addEventListener("click", () => {
+    if (istoggled) {
+        if (display.innerText == "0") {
+            display.innerHTML = "2"
+        }
+        else {
+            display.innerHTML = formatDisplay("2");
+        }
+        powerPressed = true;
+        parencount = 0;
+        array.push("2")
+        array.push("^");
+    }
+    else {
+        if (display.innerText == "0") {
+            display.innerHTML = "10"
+        }
+        else {
+            display.innerHTML = formatDisplay("10");
+        }
+        powerPressed = true;
+        parencount = 0;
+        array.push("10")
+        array.push("^");
+    }
+});
 
 secondbtn.addEventListener("click", () => {
     istoggled = !istoggled;
@@ -459,7 +488,7 @@ secondbtn.addEventListener("click", () => {
         lnbtn.innerHTML = "log<sub>y</sub>";
         logbtn.innerHTML = "log<sub>2</sub>";
         etopowertbn.innerHTML = "y<sup>x</sup>";
-        tenpowerbtn.innerHTML = "10<sup>x</sup>"
+        tenpowerbtn.innerHTML = "2<sup>x</sup>"
     }
     else {
         sinbtn.innerHTML = "sin";
@@ -471,7 +500,7 @@ secondbtn.addEventListener("click", () => {
         lnbtn.innerHTML = "ln";
         logbtn.innerHTML = "log<sub>10</sub>"
         etopowertbn.innerHTML = "<span style='font-family:Euphoria Script; font-size: 1.8em;'>e</span><sup>x</sup>"
-        tenpowerbtn.innerHTML = "2<sup>x</sup>"
+        tenpowerbtn.innerHTML = "10<sup>x</sup>"
     }
 });
 
