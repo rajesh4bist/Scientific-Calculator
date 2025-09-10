@@ -117,13 +117,13 @@ button {
 
 
 #Clear-button,
-#toggle-button,
+#minus-button,
 #percentage-button {
   background-color: #6a6767;
 }
 
 #Clear-button:active,
-#toggle-button:active,
+#minus-button:active,
 #percentage-button:active {
   background-color: #918f8f;
 }

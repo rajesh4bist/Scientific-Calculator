@@ -33,6 +33,7 @@ const radbtn = document.getElementById("Radian-button");
 const EEbtn = document.getElementById("EE-button");
 const etopowertbn = document.getElementById("e-topower-button");
 const tenpowerbtn = document.getElementById("ten-topower-button");
+const mintbn = document.getElementById("minus-button");
 
 let array = [];
 
@@ -116,6 +117,24 @@ percentbtn.addEventListener("click", (e) => {
     display.innerHTML = display.innerHTML + e.target.innerHTML;
     array.push("÷");
     array.push("100");
+});
+
+mintbn.addEventListener("click", () => {
+    let len = display.innerText.length;
+    for (let i = len; i > 0; i--) {
+        if (["+", "-", "×", "÷"].includes(display.innerText[i]) || array.length == 1) {
+            let str = "-";
+            if (array[array.length - 1].includes("-")) {
+                return;
+            }
+            else {
+                array[array.length - 1] = str.concat(array[array.length - 1]);
+                display.innerText[i + 1] = "(" + display.innerText[i + 1];
+                display.innerText[i + 2] = "-" + display.innerText[i + 2];
+                display.innerText[display.innerText.length - 1] = display.innerText[display.innerText.length - 1] + ")";
+            }
+        }
+    }
 })
 
 pointbtn.addEventListener("click", (e) => {
