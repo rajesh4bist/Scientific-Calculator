@@ -120,7 +120,7 @@ percentbtn.addEventListener("click", (e) => {
 });
 
 mintbn.addEventListener("click", () => {
-    let len = display.innerText.length;
+    let len = display.innerHTML.length;
     for (let i = len - 1; i >= 0; i--) {
         if (["+", "-", "×", "÷"].includes(display.innerHTML[i]) || array.length == 1) {
             if (!/^-?\d+(\.\d+)?$/.test(array[array.length - 1])) {
@@ -130,9 +130,9 @@ mintbn.addEventListener("click", () => {
                 return;
             }
             else {
-                array[array.length - 1] = str.concat(array[array.length - 1]);
-                let newstr = display.innerHTML.slice(i + 1, display.innerHTML.length - 1)
-                display.innerHTML = display.innerHTML + `(-${newstr})`;
+                array[array.length - 1] = "-".concat(array[array.length - 1]);
+                let newstr = display.innerHTML.slice(i + 1);
+                display.innerHTML = display.innerHTML.slice(0, i + 1) + `(-${newstr})`;
             }
         }
     }
