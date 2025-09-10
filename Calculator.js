@@ -121,17 +121,18 @@ percentbtn.addEventListener("click", (e) => {
 
 mintbn.addEventListener("click", () => {
     let len = display.innerText.length;
-    for (let i = len; i > 0; i--) {
-        if (["+", "-", "×", "÷"].includes(display.innerText[i]) || array.length == 1) {
-            let str = "-";
+    for (let i = len - 1; i >= 0; i--) {
+        if (["+", "-", "×", "÷"].includes(display.innerHTML[i]) || array.length == 1) {
+            if (!/^-?\d+(\.\d+)?$/.test(array[array.length - 1])) {
+                return;
+            }
             if (array[array.length - 1].includes("-")) {
                 return;
             }
             else {
                 array[array.length - 1] = str.concat(array[array.length - 1]);
-                display.innerText[i + 1] = "(" + display.innerText[i + 1];
-                display.innerText[i + 2] = "-" + display.innerText[i + 2];
-                display.innerText[display.innerText.length - 1] = display.innerText[display.innerText.length - 1] + ")";
+                let newstr = display.innerHTML.slice(i + 1, display.innerHTML.length - 1)
+                display.innerHTML = display.innerHTML + `(-${newstr})`;
             }
         }
     }
@@ -828,7 +829,7 @@ const calculate = () => {
             stack.pop();
         }
 
-        if (/^\d+(\.\d+)?$/i.test(element) || element == Infinity) {
+        if (/^-?\d+(\.\d+)?$/.test(element) || element == Infinity) {
             output.push(element);
         }
 
