@@ -172,65 +172,6 @@ minbtn.addEventListener("click", () => {
     //     }
     //     return;
     // }
-
-
-    if (!array || !display.innerHTML || array.length === 0) return;
-
-    const last = array[array.length - 1];
-    const isNum = /^-?\d+(\.\d*)?$/.test(last);
-
-    // Case 1: Number, PI, or E
-    if (isNum && !last.startsWith("-") && array[array.length - 2] !== "~") {
-        let isPI = Math.abs(parseFloat(last) - Math.PI) < 1e-10;
-        let isE = Math.abs(parseFloat(last) - Math.E) < 1e-10;
-        let displayVal = last;
-        if (isPI) displayVal = "π";
-        else if (isE) displayVal = "e";
-
-        // Insert tokens
-        array.splice(array.length - 1, 0, "~", "(");
-        array.push(")");
-
-        // Find position of last token in textContent
-        let plainText = display.textContent;
-        let lastLen = displayVal.length;
-        let plainStart = plainText.length - lastLen;
-        let prefixLen = display.innerHTML.lastIndexOf(plainText.substring(plainStart));
-        let prefix = display.innerHTML.slice(0, prefixLen);
-        let content = display.innerHTML.slice(prefixLen);
-
-        // Update display
-        if (isPI) {
-            display.innerHTML = `${prefix}(-<span style='font-family:lib;'>π</span>)`;
-        } else if (isE) {
-            display.innerHTML = `${prefix}(-<span style='font-family:lib;'>e</span>)`;
-        } else {
-            display.innerHTML = `${prefix}(-${content})`;
-        }
-        return;
-    }
-
-    // Case 2: Expression (ends with ")")
-    if (last === ")") {
-        let parcount = 1;
-        let i = array.length - 2;
-        while (i >= 0 && parcount > 0) {
-            if (array[i] === ")") parcount++;
-            if (array[i] === "(") parcount--;
-            i--;
-        }
-        if (parcount === 0) {
-            array.splice(i + 1, 0, "~");
-            let plainText = display.textContent;
-            let exprTokens = array.slice(i + 1).join("");
-            let plainStart = plainText.length - exprTokens.length;
-            let prefixLen = display.innerHTML.lastIndexOf(plainText.substring(plainStart));
-            let prefix = display.innerHTML.slice(0, prefixLen);
-            let expr = display.innerHTML.slice(prefixLen);
-            display.innerHTML = `${prefix}(-${expr})`;
-        }
-        return;
-    }
 });
 
 pointbtn.addEventListener("click", (e) => {
@@ -305,11 +246,12 @@ clearbtn.addEventListener("click", () => {
         return;
     }
 
-    let str = array[array.length - 1];
+
+    let top = array[array.length - 1];
 
     const funcs = ["sin", "cos", "tan", "√", "∛", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan"];
 
-    if (str == "(" && funcs.includes(array[array.length - 2])) {
+    if (top == "(" && funcs.includes(array[array.length - 2])) {
         let funcname = (array[array.length - 2])
         array.pop();
         array.pop();
@@ -317,14 +259,25 @@ clearbtn.addEventListener("click", () => {
         return;
     }
 
-    if (str.length == 1) {
+    let lastdisplay = display.innerText[display.innerText.length - 1]
+    if ((lastdisplay == 'π' && top == Math.PI.toFixed(10)) || (lastdisplay == 'e' && top == Math.E.toFixed(10))) {
+        display.innerHTML = display.innerHTML.slice(0, -1);
+        display.removeChild(display.lastChild);
+        array.pop();
+        return;
+    }
+
+    if (top.length == 1) {
         array.pop();
         display.innerHTML = display.innerHTML.slice(0, -1);
     }
-    else if (str.length > 1) {
+    else if (top.length > 1) {
         array[array.length - 1] = array[array.length - 1].slice(0, -1);
         display.innerHTML = display.innerHTML.slice(0, -1);
     }
+
+
+
 });
 
 let parencount;
