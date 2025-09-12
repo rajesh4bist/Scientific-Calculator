@@ -33,7 +33,7 @@ const radbtn = document.getElementById("Radian-button");
 const EEbtn = document.getElementById("EE-button");
 const etopowertbn = document.getElementById("e-topower-button");
 const tenpowerbtn = document.getElementById("ten-topower-button");
-const mintbn = document.getElementById("minus-button");
+const minbtn = document.getElementById("minus-button");
 
 let array = [];
 
@@ -119,37 +119,119 @@ percentbtn.addEventListener("click", (e) => {
     array.push("100");
 });
 
-mintbn.addEventListener("click", () => {
-    if (!array || !display.innerHTML || array.length === 0) return;
-    isnum = /^-?\d+(\.\d*)?$/.test(array[array.length - 1]);
 
-    if (isnum && array[array.length - 2] != "~") {
-        let lastlen = array[array.length - 1].length
-        array.splice(array.length - 1, 0, "~");
-        array.splice(array.length - 1, 0, "(");
-        array.splice(array.length, 0, ")");
-        const prefix = display.innerHTML.slice(0, display.innerHTML.length - lastlen);
-        display.innerHTML = `${prefix}(-${array[array.length - 2]})`;
+minbtn.addEventListener("click", () => {
+    // if (!array || !display.innerHTML || array.length === 0) return;
+    // let last = array[array.length - 1]
+    // let isnum = /^-?\d+(\.\d*)?$/.test(array[array.length - 1]);
+
+    // if (isnum && array[array.length - 2] != "~") {
+
+    //     array.splice(array.length - 1, 0, "~", "(");
+    //     array.splice(array.length, 0, ")");
+
+    //     if (last === Math.PI.toFixed(10)) {
+    //         let top = (array[array.length - 2] === Math.PI.toFixed(10)) ? "π" : array[array.length - 2];
+    //         const prefix = display.innerText.slice(0, display.innerText.length - top.length);
+    //         let element = document.getElementById("PIbtn");
+    //         element.remove();
+    //         display.innerHTML = `${prefix}(-<span style='font-family:lib;' class='pibutton'>π</span>)`;
+    //         return;
+    //     }
+    //     else if (last === Math.E.toFixed(10)) {
+    //         let top = (array[array.length - 2] === Math.E.toFixed(10)) ? "e" : array[array.length - 2];
+    //         const prefix = display.innerText.slice(0, display.innerText.length - top.length);
+    //         let element = document.getElementById("e-btn");
+    //         element.remove();
+    //         display.innerHTML = `${prefix}(-<span style='font-family:Euphoria Script;'class = 'ebutton'>e</span>)`;
+    //         return;
+    //     }
+    //     else {
+    //         let top = array[array.length - 2];
+    //         const prefix = display.innerText.slice(0, display.innerText.length - top.length);
+    //         display.innerHTML = `${prefix}(-${array[array.length - 2]})`;
+    //         return;
+    //     }
+    // }
+
+
+    // if (array[array.length - 1] == ")") {
+    //     let parcount = 0;
+    //     let i = array.length
+    //     while (i > 0 && parcount != 0) {
+    //         if (array[i] == ")") parcount++;
+    //         if (array[i] == "(") parcount--;
+    //         i--;
+    //     }
+    //     if (parcount == 0) {
+    //         array.splice(-(i + 1), 0, "~");
+    //         const exprLength = display.innerHTML.length - (display.textContent.length - array.slice(i + 1).join("").length);
+    //         const prefix = display.innerHTML.slice(0, exprLength);
+    //         const expr = display.innerHTML.slice(exprLength);
+    //         display.innerHTML = `${prefix}(-${expr})`;
+    //     }
+    //     return;
+    // }
+
+
+    if (!array || !display.innerHTML || array.length === 0) return;
+
+    const last = array[array.length - 1];
+    const isNum = /^-?\d+(\.\d*)?$/.test(last);
+
+    // Case 1: Number, PI, or E
+    if (isNum && !last.startsWith("-") && array[array.length - 2] !== "~") {
+        let isPI = Math.abs(parseFloat(last) - Math.PI) < 1e-10;
+        let isE = Math.abs(parseFloat(last) - Math.E) < 1e-10;
+        let displayVal = last;
+        if (isPI) displayVal = "π";
+        else if (isE) displayVal = "e";
+
+        // Insert tokens
+        array.splice(array.length - 1, 0, "~", "(");
+        array.push(")");
+
+        // Find position of last token in textContent
+        let plainText = display.textContent;
+        let lastLen = displayVal.length;
+        let plainStart = plainText.length - lastLen;
+        let prefixLen = display.innerHTML.lastIndexOf(plainText.substring(plainStart));
+        let prefix = display.innerHTML.slice(0, prefixLen);
+        let content = display.innerHTML.slice(prefixLen);
+
+        // Update display
+        if (isPI) {
+            display.innerHTML = `${prefix}(-<span style='font-family:lib;'>π</span>)`;
+        } else if (isE) {
+            display.innerHTML = `${prefix}(-<span style='font-family:lib;'>e</span>)`;
+        } else {
+            display.innerHTML = `${prefix}(-${content})`;
+        }
         return;
     }
-    if (array[array.length - 1] == ")") {
-        let parcount = 0;
-        let i = array.length
-        while (i > 0 && parcount != 0) {
-            if (array[i] == ")") parcount++;
-            if (array[i] == "(") parcount--;
+
+    // Case 2: Expression (ends with ")")
+    if (last === ")") {
+        let parcount = 1;
+        let i = array.length - 2;
+        while (i >= 0 && parcount > 0) {
+            if (array[i] === ")") parcount++;
+            if (array[i] === "(") parcount--;
             i--;
         }
-        if (parcount == 0) {
-            array.splice(-(i + 1), 0, "~");
-            const exprLength = display.innerHTML.length - (display.textContent.length - array.slice(i + 1).join("").length);
-            const prefix = display.innerHTML.slice(0, exprLength);
-            const expr = display.innerHTML.slice(exprLength);
+        if (parcount === 0) {
+            array.splice(i + 1, 0, "~");
+            let plainText = display.textContent;
+            let exprTokens = array.slice(i + 1).join("");
+            let plainStart = plainText.length - exprTokens.length;
+            let prefixLen = display.innerHTML.lastIndexOf(plainText.substring(plainStart));
+            let prefix = display.innerHTML.slice(0, prefixLen);
+            let expr = display.innerHTML.slice(prefixLen);
             display.innerHTML = `${prefix}(-${expr})`;
         }
         return;
     }
-})
+});
 
 pointbtn.addEventListener("click", (e) => {
     if (array.length > 0 && array[array.length - 1].includes(".")) {
@@ -284,6 +366,7 @@ cubebtn.addEventListener("click", () => {
 let powerPressed = false;
 topower.addEventListener("click", () => {
     powerPressed = true;
+    topower.style.backgroundColor = "#6a6767"
     parencount = 0;
     array.push("^");
 });
@@ -291,23 +374,23 @@ topower.addEventListener("click", () => {
 
 pibtn.addEventListener("click", (e) => {
     if (display.innerHTML == "0") {
-        display.innerHTML = "<span style='font-family:lib;'>π</span>";
-        array.push(Math.PI);
+        display.innerHTML = "<span style='font-family:lib;' id = 'PIbtn'>π</span>";
+        array.push(String(Math.PI.toFixed(10)));
     }
     else {
-        display.innerHTML = formatDisplay("<span style='font-family:lib;'>π</span>");
-        array.push(Math.PI);
+        display.innerHTML = formatDisplay("<span style='font-family:lib;' id = 'PIbtn'>π</span>");
+        array.push(String(Math.PI.toFixed(10)));
     }
 })
 
 ebtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerHTML = "<span style='font-family:Euphoria Script;'>e</span>";
-        array.push(Math.E);
+        display.innerHTML = "<span style='font-family:Euphoria Script;' id='e-btn'>e</span>";
+        array.push(String(Math.E.toFixed(10)));
     }
     else {
-        display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;'>e</span>");
-        array.push(Math.E);
+        display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;' id='e-btn'>e</span>");
+        array.push(String(Math.E.toFixed(10)));
     }
 });
 
@@ -754,6 +837,9 @@ Array.from(document.getElementsByTagName("button")).forEach((elem) => {
         else if (array.length == 0) {
             display.innerHTML = "0";
             clearbtn.innerHTML = "AC";
+        }
+        if (elem != topower) {
+            topower.style.backgroundColor = "#333333"
         }
     });
 });

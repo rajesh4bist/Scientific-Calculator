@@ -40,7 +40,8 @@ button {
   /* font-style: italic; */
 }
 
-#pi-button {
+#pi-button,
+.pibutton {
   font-size: 20px;
   font-family: 'lib';
 }
@@ -165,7 +166,8 @@ button {
 }
 
 
-#e-button {
+#e-button,
+.ebutton {
   font-family: "Euphoria Script";
   /* font-weight: 500; */
   font-style: normal;
