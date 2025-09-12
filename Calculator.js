@@ -123,20 +123,32 @@ mintbn.addEventListener("click", () => {
     if (!array || !display.innerHTML || array.length === 0) return;
     isnum = /^-?\d+(\.\d*)?$/.test(array[array.length - 1]);
 
-    if (!isnum || array[array.length - 1].startsWith("-")) {
+    if (isnum && array[array.length - 2] != "~") {
+        let lastlen = array[array.length - 1].length
+        array.splice(array.length - 1, 0, "~");
+        array.splice(array.length - 1, 0, "(");
+        array.splice(array.length, 0, ")");
+        const prefix = display.innerHTML.slice(0, display.innerHTML.length - lastlen);
+        display.innerHTML = `${prefix}(-${array[array.length - 2]})`;
         return;
     }
-
-    let i = display.innerHTML.length - 1;
-
-    while (i >= 0 && !["+", "-", "×", "÷"].includes(display.innerHTML[i])) {
-        i--;
+    if (array[array.length - 1] == ")") {
+        let parcount = 0;
+        let i = array.length
+        while (i > 0 && parcount != 0) {
+            if (array[i] == ")") parcount++;
+            if (array[i] == "(") parcount--;
+            i--;
+        }
+        if (parcount == 0) {
+            array.splice(-(i + 1), 0, "~");
+            const exprLength = display.innerHTML.length - (display.textContent.length - array.slice(i + 1).join("").length);
+            const prefix = display.innerHTML.slice(0, exprLength);
+            const expr = display.innerHTML.slice(exprLength);
+            display.innerHTML = `${prefix}(-${expr})`;
+        }
+        return;
     }
-    let lastlen = array[array.length - 1].length
-    array[array.length - 1] = "-".concat(array[array.length - 1]);
-    let prefix = display.innerHTML.slice(0, display.innerHTML.length - lastlen);;
-    display.innerHTML = `${prefix}(${array[array.length - 1]})`;
-
 })
 
 pointbtn.addEventListener("click", (e) => {
@@ -808,6 +820,7 @@ const calculate = () => {
         "atanh": 4,
         "log": 4,
         "log2": 4,
+        "~": 4
     }
 
     function getPrecedence(operator) {
@@ -871,7 +884,7 @@ const calculate = () => {
                 stack.push(element);
             }
         }
-        if (["sin", "cos", "tan", "√", "∛", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan", "log2"].includes(element)) {
+        if (["sin", "cos", "tan", "√", "∛", "!", "ln", "log", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh", "asin", "acos", "atan", "log2", "~"].includes(element)) {
             if (stack.length === 0) {
                 stack.push(element);
                 // console.log(stack);
@@ -967,7 +980,8 @@ const calculate = () => {
         "tanh": x => cleanTrig(Math.tanh(torad(x))),
         "asinh": x => Math.asinh(x),
         "acosh": x => Math.acosh(x),
-        "atanh": x => Math.atanh(x)
+        "atanh": x => Math.atanh(x),
+        "~": x => -x,
     }
 
     const unaryoprad = {
@@ -988,7 +1002,8 @@ const calculate = () => {
         "tanh": x => cleanTrig(Math.tanh(torad(x))),
         "asinh": x => Math.asinh(x),
         "acosh": x => Math.acosh(x),
-        "atanh": x => Math.atanh(x)
+        "atanh": x => Math.atanh(x),
+        "~": x => -x,
     }
 
     if (output.length > 1) {
