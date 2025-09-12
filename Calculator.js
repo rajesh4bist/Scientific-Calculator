@@ -120,22 +120,23 @@ percentbtn.addEventListener("click", (e) => {
 });
 
 mintbn.addEventListener("click", () => {
-    let len = display.innerHTML.length;
-    for (let i = len - 1; i >= 0; i--) {
-        if (["+", "-", "×", "÷"].includes(display.innerHTML[i]) || array.length == 1) {
-            if (!/^-?\d+(\.\d+)?$/.test(array[array.length - 1])) {
-                return;
-            }
-            if (array[array.length - 1].includes("-")) {
-                return;
-            }
-            else {
-                array[array.length - 1] = "-".concat(array[array.length - 1]);
-                let newstr = display.innerHTML.slice(i + 1);
-                display.innerHTML = display.innerHTML.slice(0, i + 1) + `(-${newstr})`;
-            }
-        }
+    if (!array || !display.innerHTML || array.length === 0) return;
+    isnum = /^-?\d+(\.\d*)?$/.test(array[array.length - 1]);
+
+    if (!isnum || array[array.length - 1].startsWith("-")) {
+        return;
     }
+
+    let i = display.innerHTML.length - 1;
+
+    while (i >= 0 && !["+", "-", "×", "÷"].includes(display.innerHTML[i])) {
+        i--;
+    }
+    let lastlen = array[array.length - 1].length
+    array[array.length - 1] = "-".concat(array[array.length - 1]);
+    let prefix = display.innerHTML.slice(0, display.innerHTML.length - lastlen);;
+    display.innerHTML = `${prefix}(${array[array.length - 1]})`;
+
 })
 
 pointbtn.addEventListener("click", (e) => {
