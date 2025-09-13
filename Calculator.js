@@ -121,57 +121,69 @@ percentbtn.addEventListener("click", (e) => {
 
 
 minbtn.addEventListener("click", () => {
-    // if (!array || !display.innerHTML || array.length === 0) return;
-    // let last = array[array.length - 1]
-    // let isnum = /^-?\d+(\.\d*)?$/.test(array[array.length - 1]);
+    if (!array || !display.innerHTML || array.length === 0) return;
+    let last = array[array.length - 1]
+    let isnum = /^-?\d+(\.\d*)?$/.test(array[array.length - 1]);
 
-    // if (isnum && array[array.length - 2] != "~") {
+    if (isnum && array[array.length - 2] != "~") {
 
-    //     array.splice(array.length - 1, 0, "~", "(");
-    //     array.splice(array.length, 0, ")");
+        array.splice(array.length - 1, 0, "~", "(");
+        array.splice(array.length, 0, ")");
 
-    //     if (last === Math.PI.toFixed(10)) {
-    //         let top = (array[array.length - 2] === Math.PI.toFixed(10)) ? "π" : array[array.length - 2];
-    //         const prefix = display.innerText.slice(0, display.innerText.length - top.length);
-    //         let element = document.getElementById("PIbtn");
-    //         element.remove();
-    //         display.innerHTML = `${prefix}(-<span style='font-family:lib;' class='pibutton'>π</span>)`;
-    //         return;
-    //     }
-    //     else if (last === Math.E.toFixed(10)) {
-    //         let top = (array[array.length - 2] === Math.E.toFixed(10)) ? "e" : array[array.length - 2];
-    //         const prefix = display.innerText.slice(0, display.innerText.length - top.length);
-    //         let element = document.getElementById("e-btn");
-    //         element.remove();
-    //         display.innerHTML = `${prefix}(-<span style='font-family:Euphoria Script;'class = 'ebutton'>e</span>)`;
-    //         return;
-    //     }
-    //     else {
-    //         let top = array[array.length - 2];
-    //         const prefix = display.innerText.slice(0, display.innerText.length - top.length);
-    //         display.innerHTML = `${prefix}(-${array[array.length - 2]})`;
-    //         return;
-    //     }
-    // }
+        if (last == Math.PI.toFixed(10)) {
+
+            let elements = document.getElementsByClassName("PIbtn");
+            elements[elements.length - 1].remove();
+            if (powerPressed) {
+                display.insertAdjacentHTML("beforeend", "<sup class='superscript'>(-</sup>")
+                display.insertAdjacentHTML("beforeend", "<sup class='superscript'><span style='font-family:lib;' class='PIbtn'>π</span>)</sup>");
+            }
+            else {
+                display.insertAdjacentText("beforeend", "(-")
+                display.insertAdjacentHTML("beforeend", "<span style='font-family:lib;' class='PIbtn'>π</span>)");
+            }
+            return;
+        }
+
+        else {
+            let top = array[array.length - 2];
+            if (powerPressed) {
+                // display.lastChild.remove(); 
+                const prefix = display.innerText.slice(0, display.innerText.length - (top.length));
+                if (document.getElementsByTagName("sup")) {
+                    Array.from(document.getElementsByTagName("sup")).forEach(() => {
+                        display.lastElementChild.remove();
+                    })
+                }
+                console.log(prefix);
+                display.innerHTML = `${prefix}<sup class="superscript">(-${array[array.length - 2]})</sup>`;
+            }
+            else {
+                const prefix = display.innerHTML.slice(0, display.innerHTML.length - top.length);
+                display.innerHTML = `${prefix}(-${array[array.length - 2]})`;
+            }
+            return;
+        }
+    }
 
 
-    // if (array[array.length - 1] == ")") {
-    //     let parcount = 0;
-    //     let i = array.length
-    //     while (i > 0 && parcount != 0) {
-    //         if (array[i] == ")") parcount++;
-    //         if (array[i] == "(") parcount--;
-    //         i--;
-    //     }
-    //     if (parcount == 0) {
-    //         array.splice(-(i + 1), 0, "~");
-    //         const exprLength = display.innerHTML.length - (display.textContent.length - array.slice(i + 1).join("").length);
-    //         const prefix = display.innerHTML.slice(0, exprLength);
-    //         const expr = display.innerHTML.slice(exprLength);
-    //         display.innerHTML = `${prefix}(-${expr})`;
-    //     }
-    //     return;
-    // }
+    if (array[array.length - 1] == ")") {
+        let parcount = 0;
+        let i = array.length
+        while (i > 0 && parcount != 0) {
+            if (array[i] == ")") parcount++;
+            if (array[i] == "(") parcount--;
+            i--;
+        }
+        if (parcount == 0) {
+            array.splice(-(i + 1), 0, "~");
+            const exprLength = display.innerHTML.length - (display.textContent.length - array.slice(i + 1).join("").length);
+            const prefix = display.innerHTML.slice(0, exprLength);
+            const expr = display.innerHTML.slice(exprLength);
+            display.innerHTML = `${prefix}(-${expr})`;
+        }
+        return;
+    }
 });
 
 pointbtn.addEventListener("click", (e) => {
@@ -234,6 +246,7 @@ clearbtn.addEventListener("mouseleave", () => {
     clearTimeout(timer);
 });
 
+
 clearbtn.addEventListener("click", () => {
 
     if (clearbtn.innerText == "AC") {
@@ -245,7 +258,6 @@ clearbtn.addEventListener("click", () => {
         powerPressed = false;
         return;
     }
-
 
     let top = array[array.length - 1];
 
@@ -275,9 +287,6 @@ clearbtn.addEventListener("click", () => {
         array[array.length - 1] = array[array.length - 1].slice(0, -1);
         display.innerHTML = display.innerHTML.slice(0, -1);
     }
-
-
-
 });
 
 let parencount;
@@ -327,11 +336,11 @@ topower.addEventListener("click", () => {
 
 pibtn.addEventListener("click", (e) => {
     if (display.innerHTML == "0") {
-        display.innerHTML = "<span style='font-family:lib;' id = 'PIbtn'>π</span>";
+        display.innerHTML = "<span style='font-family:lib;' class = 'PIbtn'>π</span>";
         array.push(String(Math.PI.toFixed(10)));
     }
     else {
-        display.innerHTML = formatDisplay("<span style='font-family:lib;' id = 'PIbtn'>π</span>");
+        display.innerHTML = formatDisplay("<span style='font-family:lib;' class = 'PIbtn'>π</span>");
         array.push(String(Math.PI.toFixed(10)));
     }
 })
