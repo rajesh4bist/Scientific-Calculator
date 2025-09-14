@@ -864,7 +864,26 @@ const createoptions = () => {
     scientificbtn1.className = "scientific-toggle-btn option-btn";
     scientificbtn1.addEventListener("click", () => { switchmode("Scientific") });
 
-  
+    const btns = [normalbtn1, normalbtn, scientificbtn, scientificbtn1];
+    btns.forEach((e) => {
+        e.style.backgroundColor = "#110101f8"
+        e.style.marginLeft = "20px"
+        if (e == normalbtn || e == normalbtn1) {
+            e.style.marginBottom = "-10px"
+        }
+        if (e == scientificbtn || e == scientificbtn1) {
+            e.style.marginBottom = "10px"
+        }
+    })
+
+    newdiv.appendChild(normalbtn);
+    newdiv.appendChild(scientificbtn);
+
+    newdiv1.appendChild(normalbtn1);
+    newdiv1.appendChild(scientificbtn1);
+
+    document.getElementsByClassName("calc-container")[0].appendChild(newdiv);
+    document.getElementsByClassName("calc-container")[1].appendChild(newdiv1);
 
 }
 
