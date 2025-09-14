@@ -34,8 +34,12 @@ const EEbtn = document.getElementById("EE-button");
 const etopowertbn = document.getElementById("e-topower-button");
 const tenpowerbtn = document.getElementById("ten-topower-button");
 const minbtn = document.getElementById("minus-button");
+const calcbtn = document.getElementById("Calc-button");
 
 let array = [];
+
+let calcmode = "normal";
+
 
 additionbtn.addEventListener("click", (e) => {
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
@@ -333,7 +337,7 @@ cubebtn.addEventListener("click", () => {
 let powerPressed = false;
 topower.addEventListener("click", () => {
     powerPressed = !powerPressed;
-        topower.style.backgroundColor = "#6a6767"
+    topower.style.backgroundColor = "#6a6767"
     parencount = 0;
     array.push("^");
 });
@@ -775,6 +779,9 @@ const formatDisplay = (string) => {
     }
 }
 
+const switchcalc = (mode) => {
+calcmode
+}
 
 const factorial = (fact) => {
     let facto = 1;
