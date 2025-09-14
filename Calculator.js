@@ -663,6 +663,15 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
     });
 })
 
+calcbtn.addEventListener("click", () => {
+    if (!optionsCreated) {
+        createoptions();
+        optionsCreated = true;
+        optionsVisible = true; // start visible
+    } else {
+        toggleoption();
+    }
+});
 
 document.addEventListener("keydown", (e) => {
     let key = e.key;
@@ -779,8 +788,48 @@ const formatDisplay = (string) => {
     }
 }
 
-const switchcalc = (mode) => {
-calcmode
+const switchmode = (mode) => {
+    calcmode = mode;
+    if (mode == "normal") {
+        document.getElementById("Normal-Mode").style.display = "block";
+        document.getElementById("Scientific-Mode").style.display = "none";
+    }
+    else {
+        document.getElementById("Scientific-Mode").style.display = "block";
+        document.getElementById("Normal-Mode").style.display = "none";
+    }
+    if (optionsVisible) toggleoption();
+}
+
+let optionsCreated = false;
+let optionsVisible = false;
+let normalbtn, scientificbtn;
+
+const createoptions = () => {
+    normalbtn = document.createElement("button");
+    normalbtn.innerText = "Normal";
+    normalbtn.className = "normal-toggle-btn option-btn";
+    normalbtn.addEventListener("click", () => { switchmode("normal") });
+
+    scientificbtn = document.createElement("button");
+    scientificbtn.innerText = "Scientific";
+    scientificbtn.className = "scientific-toggle-btn option-btn";
+    scientificbtn.addEventListener("click", () => { switchmode("Scientific") });
+
+    document.getElementById("calc-container").appendChild(normalbtn);
+    document.getElementById("calc-container").appendChild(scientificbtn);
+}
+
+const toggleoption = () => {
+    if (!optionsVisible) {
+        normalbtn.classList.add("show-normal");
+        scientificbtn.classList.add("show-scientific");
+    }
+    else {
+        normalbtn.classList.remove("show-normal");
+        scientificbtn.classList.remove("show-scientific");
+    }
+    optionsVisible = !optionsVisible;
 }
 
 const factorial = (fact) => {
