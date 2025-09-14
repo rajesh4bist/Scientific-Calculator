@@ -148,13 +148,8 @@ minbtn.addEventListener("click", () => {
         else {
             let top = array[array.length - 2];
             if (powerPressed) {
-                // display.lastChild.remove(); 
                 const prefix = display.innerText.slice(0, display.innerText.length - (top.length));
-                if (document.getElementsByTagName("sup")) {
-                    Array.from(document.getElementsByTagName("sup")).forEach(() => {
-                        display.lastElementChild.remove();
-                    })
-                }
+                display.lastElementChild.remove();
                 console.log(prefix);
                 display.innerHTML = `${prefix}<sup class="superscript">(-${array[array.length - 2]})</sup>`;
             }
@@ -279,6 +274,15 @@ clearbtn.addEventListener("click", () => {
         return;
     }
 
+    if (array[array.length - 1].length === 1 && array[array.length - 2] == "^" && array.length > 0) {
+        array.pop();
+        array.pop();
+        powerPressed = false;
+        display.innerHTML = display.innerHTML.slice(0, -1);
+        display.lastElementChild.remove();
+        return;
+    }
+
     if (top.length == 1) {
         array.pop();
         display.innerHTML = display.innerHTML.slice(0, -1);
@@ -287,6 +291,7 @@ clearbtn.addEventListener("click", () => {
         array[array.length - 1] = array[array.length - 1].slice(0, -1);
         display.innerHTML = display.innerHTML.slice(0, -1);
     }
+
 });
 
 let parencount;
@@ -327,8 +332,8 @@ cubebtn.addEventListener("click", () => {
 
 let powerPressed = false;
 topower.addEventListener("click", () => {
-    powerPressed = true;
-    topower.style.backgroundColor = "#6a6767"
+    powerPressed = !powerPressed;
+        topower.style.backgroundColor = "#6a6767"
     parencount = 0;
     array.push("^");
 });

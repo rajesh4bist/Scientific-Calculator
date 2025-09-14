@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
-    <script src="Calculator.js" defer></script>
-      <!-- <script src="test.js" defer></script> -->
-    <link rel="stylesheet" href="Calculator.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-  </head>
 
-  <body>
-    <div class="maincontainer">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator</title>
+  <script src="Calculator.js" defer></script>
+  <!-- <script src="test.js" defer></script> -->
+  <link rel="stylesheet" href="Calculator.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="maincontainer">
     <div id="display-container">0</div>
+
+    <div id="Scientific-Mode">
       <div class="Scientific-functions">
         <div id="first-row" class="container-one">
           <button id="parenthesis-open-button" class="function-buttons">
@@ -37,7 +40,7 @@
             x<sup>y</sup>
           </button>
           <button id="e-topower-button" class="function-buttons">
-           <span style='font-family:Euphoria Script; font-size: 1.8em;'>e</span><sup>x</sup>
+            <span style='font-family:Euphoria Script; font-size: 1.8em;'>e</span><sup>x</sup>
           </button>
           <button id="ten-topower-button" class="function-buttons">
             10<sup>x</sup>
@@ -76,13 +79,12 @@
           <button id="Radian-button" class="function-buttons">Rad</button>
         </div>
       </div>
-
       <div class="Second-part">
         <div id="sixth-row" class="container-two">
           <button id="Clear-button" class="numeric-buttons">AC</button>
           <button id="minus-button" class="numeric-buttons">+/-</button>
           <button id="percentage-button" class="numeric-buttons">%</button>
-          <button id="division-button" class="numeric-buttons operators"  data-op="÷">÷</button>
+          <button id="division-button" class="numeric-buttons operators" data-op="÷">÷</button>
         </div>
 
         <div id="seventh-row" class="container-two">
@@ -102,7 +104,7 @@
           <button id="one-button" class="numeric-buttons numeric-keys">1</button>
           <button id="two-button" class="numeric-buttons numeric-keys">2</button>
           <button id="three-button" class="numeric-buttons numeric-keys">3</button>
-          <button id="addition-button" class="numeric-buttons operators" data-op="+" >+</button>
+          <button id="addition-button" class="numeric-buttons operators" data-op="+">+</button>
         </div>
 
         <div id="tenth-row" class="container-two">
@@ -113,5 +115,13 @@
         </div>
       </div>
     </div>
-  </body>
+
+    <div id="Normal-Mode">
+  
+    </div>
+
+
+  </div>
+</body>
+
 </html>
