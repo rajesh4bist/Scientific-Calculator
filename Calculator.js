@@ -821,31 +821,6 @@ let newdiv, newdiv1, normalbtn, scientificbtn, normalbtn1, scientificbtn1;
 
 const createoptions = () => {
 
-    // normalbtn = document.createElement("button");
-    // normalbtn.innerText = "Normal";
-    // normalbtn.className = "normal-toggle-btn option-btn";
-    // normalbtn.addEventListener("click", () => { switchmode("normal") });
-
-    // normalbtn1 = document.createElement("button");
-    // normalbtn1.innerText = "Normal";
-    // normalbtn1.className = "normal-toggle-btn option-btn";
-    // normalbtn1.addEventListener("click", () => { switchmode("normal") });
-
-    // scientificbtn = document.createElement("button");
-    // scientificbtn.innerText = "Scientific";
-    // scientificbtn.className = "scientific-toggle-btn option-btn";
-    // scientificbtn.addEventListener("click", () => { switchmode("Scientific") });
-
-    // scientificbtn1 = document.createElement("button");
-    // scientificbtn1.innerText = "Scientific";
-    // scientificbtn1.className = "scientific-toggle-btn option-btn";
-    // scientificbtn1.addEventListener("click", () => { switchmode("Scientific") });
-
-    // document.getElementsByClassName("calc-container")[0].appendChild(normalbtn);
-    // document.getElementsByClassName("calc-container")[1].appendChild(normalbtn1);
-    // document.getElementsByClassName("calc-container")[0].appendChild(scientificbtn);
-    // document.getElementsByClassName("calc-container")[1].appendChild(scientificbtn1);
-
     newdiv = document.createElement("div");
     newdiv.className = "new-div"
     newdiv1 = document.createElement("div");
@@ -976,6 +951,7 @@ document.addEventListener("keydown", (e) => {
 const clear = () => {
     clearbtn.innerHTML = "C";
 }
+
 
 
 const calculate = () => {
