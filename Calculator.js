@@ -284,6 +284,13 @@ clearbtn.addEventListener("click", () => {
         return;
     }
 
+    if (array[array.length - 1] == "100" && display.innerText[display.innerText.length - 1] == "%") {
+        array.pop();
+        array.pop();
+        display.innerHTML = display.innerHTML.slice(0, -1);
+        return;
+    }
+
     if (top.length == 1) {
         array.pop();
         display.innerHTML = display.innerHTML.slice(0, -1);
