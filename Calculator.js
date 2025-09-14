@@ -673,9 +673,6 @@ Array.from(calcbtn).forEach((elem) => {
     })
 })
 
-// calcbtn.addEventListener("click", () => {
-
-// });
 
 document.addEventListener("keydown", (e) => {
     let key = e.key;
@@ -797,22 +794,56 @@ const switchmode = (mode) => {
     if (mode == "normal") {
         document.getElementById("Normal-Mode").style.display = "block";
         document.getElementById("Scientific-Mode").style.display = "none";
-        display.style.height="150px";
+        display.style.height = "150px";
         display.style.fontSize = "4em";
         display.style.marginBottom = "7px"
     }
     else {
         document.getElementById("Scientific-Mode").style.display = "block";
         document.getElementById("Normal-Mode").style.display = "none";
+        display.style.fontSize = "xxx-large";
+        display.style.height = "95px";
+
     }
     if (optionsVisible) toggleoption();
 }
 
 let optionsCreated = false;
 let optionsVisible = false;
-let normalbtn, scientificbtn, normalbtn1, scientificbtn1;
+let newdiv, newdiv1, normalbtn, scientificbtn, normalbtn1, scientificbtn1;
 
 const createoptions = () => {
+
+    // normalbtn = document.createElement("button");
+    // normalbtn.innerText = "Normal";
+    // normalbtn.className = "normal-toggle-btn option-btn";
+    // normalbtn.addEventListener("click", () => { switchmode("normal") });
+
+    // normalbtn1 = document.createElement("button");
+    // normalbtn1.innerText = "Normal";
+    // normalbtn1.className = "normal-toggle-btn option-btn";
+    // normalbtn1.addEventListener("click", () => { switchmode("normal") });
+
+    // scientificbtn = document.createElement("button");
+    // scientificbtn.innerText = "Scientific";
+    // scientificbtn.className = "scientific-toggle-btn option-btn";
+    // scientificbtn.addEventListener("click", () => { switchmode("Scientific") });
+
+    // scientificbtn1 = document.createElement("button");
+    // scientificbtn1.innerText = "Scientific";
+    // scientificbtn1.className = "scientific-toggle-btn option-btn";
+    // scientificbtn1.addEventListener("click", () => { switchmode("Scientific") });
+
+    // document.getElementsByClassName("calc-container")[0].appendChild(normalbtn);
+    // document.getElementsByClassName("calc-container")[1].appendChild(normalbtn1);
+    // document.getElementsByClassName("calc-container")[0].appendChild(scientificbtn);
+    // document.getElementsByClassName("calc-container")[1].appendChild(scientificbtn1);
+
+    newdiv = document.createElement("div");
+    newdiv.className = "new-div"
+    newdiv1 = document.createElement("div");
+    newdiv1.className = "new-div"
+
     normalbtn = document.createElement("button");
     normalbtn.innerText = "Normal";
     normalbtn.className = "normal-toggle-btn option-btn";
@@ -833,13 +864,8 @@ const createoptions = () => {
     scientificbtn1.className = "scientific-toggle-btn option-btn";
     scientificbtn1.addEventListener("click", () => { switchmode("Scientific") });
 
-    document.getElementsByClassName("calc-container")[0].appendChild(normalbtn);
+  
 
-    document.getElementsByClassName("calc-container")[1].appendChild(normalbtn1);
-
-    document.getElementsByClassName("calc-container")[0].appendChild(scientificbtn);
-
-    document.getElementsByClassName("calc-container")[1].appendChild(scientificbtn1);
 }
 
 const toggleoption = () => {
@@ -848,12 +874,18 @@ const toggleoption = () => {
         scientificbtn.classList.add("show-scientific");
         normalbtn1.classList.add("show-normal");
         scientificbtn1.classList.add("show-scientific");
+
+        newdiv.classList.add("div-new")
+        newdiv1.classList.add("div-new")
     }
     else {
         normalbtn.classList.remove("show-normal");
         scientificbtn.classList.remove("show-scientific");
         normalbtn1.classList.remove("show-normal");
         scientificbtn1.classList.remove("show-scientific");
+
+        newdiv.classList.remove("div-new")
+        newdiv1.classList.remove("div-new")
     }
     optionsVisible = !optionsVisible;
 }
