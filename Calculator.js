@@ -34,12 +34,9 @@ const EEbtn = document.getElementById("EE-button");
 const etopowertbn = document.getElementById("e-topower-button");
 const tenpowerbtn = document.getElementById("ten-topower-button");
 const minbtn = document.getElementById("minus-button");
-const calcbtn = document.getElementById("Calc-button");
+const calcbtn = document.getElementsByClassName("Calc-button");
 
 let array = [];
-
-let calcmode = "normal";
-
 
 additionbtn.addEventListener("click", (e) => {
     if (["+", "-", "×", "÷"].includes(array[array.length - 1])) {
@@ -663,15 +660,22 @@ Array.from(document.getElementsByClassName("numeric-keys")).forEach((NumericKeys
     });
 })
 
-calcbtn.addEventListener("click", () => {
-    if (!optionsCreated) {
-        createoptions();
-        optionsCreated = true;
-        optionsVisible = true; // start visible
-    } else {
-        toggleoption();
-    }
-});
+Array.from(calcbtn).forEach((elem) => {
+    elem.addEventListener("click", () => {
+        if (!optionsCreated) {
+            createoptions();
+            toggleoption();
+            optionsCreated = true;
+            optionsVisible = true; // start visible
+        } else {
+            toggleoption();
+        }
+    })
+})
+
+// calcbtn.addEventListener("click", () => {
+
+// });
 
 document.addEventListener("keydown", (e) => {
     let key = e.key;
@@ -788,11 +792,14 @@ const formatDisplay = (string) => {
     }
 }
 
+
 const switchmode = (mode) => {
-    calcmode = mode;
     if (mode == "normal") {
         document.getElementById("Normal-Mode").style.display = "block";
         document.getElementById("Scientific-Mode").style.display = "none";
+        display.style.height="150px";
+        display.style.fontSize = "4em";
+        display.style.marginBottom = "7px"
     }
     else {
         document.getElementById("Scientific-Mode").style.display = "block";
@@ -803,7 +810,7 @@ const switchmode = (mode) => {
 
 let optionsCreated = false;
 let optionsVisible = false;
-let normalbtn, scientificbtn;
+let normalbtn, scientificbtn, normalbtn1, scientificbtn1;
 
 const createoptions = () => {
     normalbtn = document.createElement("button");
@@ -811,23 +818,42 @@ const createoptions = () => {
     normalbtn.className = "normal-toggle-btn option-btn";
     normalbtn.addEventListener("click", () => { switchmode("normal") });
 
+    normalbtn1 = document.createElement("button");
+    normalbtn1.innerText = "Normal";
+    normalbtn1.className = "normal-toggle-btn option-btn";
+    normalbtn1.addEventListener("click", () => { switchmode("normal") });
+
     scientificbtn = document.createElement("button");
     scientificbtn.innerText = "Scientific";
     scientificbtn.className = "scientific-toggle-btn option-btn";
     scientificbtn.addEventListener("click", () => { switchmode("Scientific") });
 
-    document.getElementById("calc-container").appendChild(normalbtn);
-    document.getElementById("calc-container").appendChild(scientificbtn);
+    scientificbtn1 = document.createElement("button");
+    scientificbtn1.innerText = "Scientific";
+    scientificbtn1.className = "scientific-toggle-btn option-btn";
+    scientificbtn1.addEventListener("click", () => { switchmode("Scientific") });
+
+    document.getElementsByClassName("calc-container")[0].appendChild(normalbtn);
+
+    document.getElementsByClassName("calc-container")[1].appendChild(normalbtn1);
+
+    document.getElementsByClassName("calc-container")[0].appendChild(scientificbtn);
+
+    document.getElementsByClassName("calc-container")[1].appendChild(scientificbtn1);
 }
 
 const toggleoption = () => {
     if (!optionsVisible) {
         normalbtn.classList.add("show-normal");
         scientificbtn.classList.add("show-scientific");
+        normalbtn1.classList.add("show-normal");
+        scientificbtn1.classList.add("show-scientific");
     }
     else {
         normalbtn.classList.remove("show-normal");
         scientificbtn.classList.remove("show-scientific");
+        normalbtn1.classList.remove("show-normal");
+        scientificbtn1.classList.remove("show-scientific");
     }
     optionsVisible = !optionsVisible;
 }
