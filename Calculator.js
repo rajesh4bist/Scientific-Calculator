@@ -140,8 +140,23 @@ minbtn.addEventListener("click", () => {
                 display.insertAdjacentHTML("beforeend", "<sup class='superscript'><span style='font-family:lib;' class='PIbtn'>π</span>)</sup>");
             }
             else {
-                display.insertAdjacentText("beforeend", "(-")
+                display.insertAdjacentText("beforeend", "(-");
                 display.insertAdjacentHTML("beforeend", "<span style='font-family:lib;' class='PIbtn'>π</span>)");
+            }
+            return;
+        }
+
+        if (last == Math.E.toFixed(10)) {
+
+            let elements = document.getElementsByClassName("e-btn");
+            elements[elements.length - 1].remove();
+            if (powerPressed) {
+                display.insertAdjacentHTML("beforeend", "<sup class='superscript'>(-</sup>");
+                display.insertAdjacentHTML("beforeend", "<sup class='superscript'><span style='font-family:Euphoria Script;' class='e-btn'>e</span>)</sup>");
+            }
+            else {
+                display.insertAdjacentText("beforeend", "(-");
+                display.insertAdjacentHTML("beforeend", "<span style='font-family:Euphoria Script;' class='e-btn'>e</span>)");
             }
             return;
         }
@@ -360,11 +375,11 @@ pibtn.addEventListener("click", (e) => {
 
 ebtn.addEventListener("click", (e) => {
     if (display.innerText == "0") {
-        display.innerHTML = "<span style='font-family:Euphoria Script;' id='e-btn'>e</span>";
+        display.innerHTML = "<span style='font-family:Euphoria Script;' class='e-btn'>e</span>";
         array.push(String(Math.E.toFixed(10)));
     }
     else {
-        display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;' id='e-btn'>e</span>");
+        display.innerHTML = formatDisplay("<span style='font-family:Euphoria Script;' class='e-btn'>e</span>");
         array.push(String(Math.E.toFixed(10)));
     }
 });
@@ -876,8 +891,8 @@ const toggleoption = () => {
         normalbtn1.classList.add("show-normal");
         scientificbtn1.classList.add("show-scientific");
 
-        newdiv.classList.add("div-new")
-        newdiv1.classList.add("div-new")
+        newdiv.classList.add("div-new");
+        newdiv1.classList.add("div-new");
     }
     else {
         normalbtn.classList.remove("show-normal");
@@ -885,8 +900,8 @@ const toggleoption = () => {
         normalbtn1.classList.remove("show-normal");
         scientificbtn1.classList.remove("show-scientific");
 
-        newdiv.classList.remove("div-new")
-        newdiv1.classList.remove("div-new")
+        newdiv.classList.remove("div-new");
+        newdiv1.classList.remove("div-new");
     }
     optionsVisible = !optionsVisible;
 }
